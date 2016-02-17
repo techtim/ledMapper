@@ -1,0 +1,13 @@
+<ledCtrl-0>
+	<group>
+		<PixInLed>1</PixInLed>
+		<LedType>3</LedType>
+		<Double_Line>0</Double_Line>
+		<UDP>0</UDP>
+		<IP>192.168.2.104</IP>
+		<Port>3000</Port>
+		<DMX>0</DMX>
+		<DMX_Chan>1</DMX_Chan>
+	</group>
+<ledCtrl-0/>
+</ledCtrl-0>

@@ -1,0 +1,8 @@
+ofxDmx
+ofxFastFboReader
+ofxGui
+ofxLedMapper
+ofxNetwork
+ofxSyphon
+ofxTextInputField
+ofxXmlSettings
