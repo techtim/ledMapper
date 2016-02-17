@@ -24,6 +24,7 @@ Steps:
 - copy executable files to your /home/pi/udpWS281x
 - type '
 	cd ~
+
 	chmod ugo+x udpWS281x udpLPD8806
 	'
 - if you using LPD8806 activate SPI in RPI config, type 'sudo raspi-config'
