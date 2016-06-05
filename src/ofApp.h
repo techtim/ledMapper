@@ -44,7 +44,7 @@ class ofApp : public ofBaseApp{
     ofParameter<int> syphonW, syphonH, syphonX, syphonY;
     ofParameter<ofColor> colorFilter;
     ofParameter<bool> bRotate;
-    ofParameter<int> rotate;
+    ofParameter<float> rotate;
     int rotatePos;
     
     bool bHelp = false;
