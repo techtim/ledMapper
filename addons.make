@@ -1,8 +1,6 @@
-ofxDmx
+ofxDatGui
 ofxFastFboReader
-ofxGui
 ofxLedMapper
 ofxNetwork
 ofxSyphon
-ofxTextInputField
 ofxXmlSettings

@@ -1,13 +1,6 @@
-<Syphon1>
-	<server_num>0</server_num>
-	<width>500</width>
-	<height>500</height>
-	<x>374</x>
-	<y>376</y>
-	<rotate>0</rotate>
-	<color>255, 255, 255, 170</color>
-<Syphon1/>
-<syphon_Width>500</syphon_Width>
-	<syphon_Heigth>500</syphon_Heigth>
-<rotate_speed>0</rotate_speed>
-</Syphon1>
+<syphon>
+    <syphonW>680</syphonW>
+    <syphonH>400</syphonH>
+    <syphonX>340</syphonX>
+    <syphonY>109</syphonY>
+</syphon>
