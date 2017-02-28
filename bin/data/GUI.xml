@@ -1,6 +1,10 @@
 <syphon>
-    <syphonW>680</syphonW>
-    <syphonH>400</syphonH>
-    <syphonX>340</syphonX>
-    <syphonY>109</syphonY>
+    <syphonW>800</syphonW>
+    <syphonH>600</syphonH>
+    <syphonX>420</syphonX>
+    <syphonY>219</syphonY>
+    <brightness>109</brightness>
+    <filterR>255</filterR>
+    <filterG>255</filterG>
+    <filterB>255</filterB>
 </syphon>

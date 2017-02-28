@@ -7,7 +7,7 @@ void ofApp::setup(){
 	ofEnableAntiAliasing();
 	ofSetEscapeQuitsApp(false);
 	ofSetVerticalSync(true);
-	ofSetFrameRate(30);
+	ofSetFrameRate(25);
 
     SyphonDir.setup();
     Syphon1.setup();
@@ -19,6 +19,7 @@ void ofApp::setup(){
     
 	bShowGui= true;
     bSetupGui = false;
+    bTestImage = false;
     setupGui();
 
 	prev_dirIdx = -1;
@@ -33,7 +34,7 @@ void ofApp::setup(){
     }
 	ledMapper->load();
 
-	textHelp = "CMD+Click - add line points in active controller / SHIFT+Click add circle of points \n BKSPS+Click - on line edges to delete line \n 's' - save , 'l' - load \n When turn on 'Debug controller' you can switch between all controlles to show individual maps"; //using LEFT/RIGHT keys
+	textHelp = " CMD+Click - add line points in active controller / SHIFT+Click add circle of points \n BKSPS+Click - on line edges to delete line \n UP/DOWN keys - switch between controllers \n 's' - save , 'l' - load \n When turn on 'Debug controller' you can switch between all controlles to show and map individual maps"; //
 
 }
 
@@ -53,6 +54,7 @@ void ofApp::setupGui() {
     syphonList->onDropdownEvent(this, &ofApp::onDropdownEvent);
     updateVideoServers();
 
+//    ofxDatGuiFolder* folder = gui->addFolder("parameters", ofColor::white);
     ofxDatGuiSlider* sInput;
     sInput = gui->addSlider("width", 100, 1920);
     sInput->bind(syphonW);
@@ -74,6 +76,9 @@ void ofApp::setupGui() {
     sInput->bind(filterG);
     sInput = gui->addSlider("blue", 0, 255);
     sInput->bind(filterB);
+    
+    ofxDatGuiToggle *tInput = gui->addToggle("test image");
+    tInput->bind(bTestImage);
     
     bSetupGui = true;
 }
@@ -101,10 +106,14 @@ void ofApp::update(){
 //        ofLogVerbose(ofToString(rotatePos));
 		ofRotateZ(rotatePos);
 	}
+    
+    ofSetColor(ofColor(filterR, filterG, filterB, filterA));
+    if (Syphon1.getApplicationName() != "") {
+        Syphon1.draw(-syphonW/2, -syphonH/2, syphonW, syphonH);
+    } else if (bTestImage) {
+        ofDrawRectangle(-syphonW/2, -syphonH/2, syphonW, syphonH);
+    }
 
-	ofSetColor(ofColor(filterR, filterG, filterB, filterA));
-	Syphon1.draw(-syphonW/2, -syphonH/2, syphonW,syphonH );
-	//        Syphon2.draw(SYPHON_W, 0, SYPHON_W, SYPHON_H);
 	fbo1.end();
     fbo1.readToPixels(pix);
 //	fboReader.readToPixels(fbo1, pix, OF_IMAGE_COLOR);
@@ -118,14 +127,11 @@ void ofApp::draw(){
 
 	fbo1.draw(0, 0);
 
-//	ofSetColor(255);
-//	ofDrawCircle(syphonX, syphonY, 3);
-
 	if (bShowGui && bSetupGui) {
 		gui->draw();
 		ledMapper->draw();
 	}
-	ofSetWindowTitle("ledMapper (fps: "+ofToString(ofGetFrameRate())+")");
+	ofSetWindowTitle("ledMapper (fps: "+ofToString(static_cast<int>(ofGetFrameRate()))+")");
 	ofSetColor(255,255,255,255);
 	bHelp ? ofDrawBitmapString(textHelp, 10, 730) : ofDrawBitmapString("'h' - help", 10, 790);;
 }
@@ -141,7 +147,7 @@ void ofApp::updateVideoServers() {
         }
         syphonList->setDropdownList(list);
         // -1 initial value
-        if (prev_dirIdx == -1 && !list.empty()) {
+        if (Syphon1.getApplicationName() == "" && !list.empty()) {
             dirIdx = prev_dirIdx = 0;
             Syphon1.set(SyphonDir.getDescription(dirIdx));
         }
@@ -158,6 +164,10 @@ void ofApp::saveToFile(const string & path) {
     XML.addValue("syphonH", syphonH);
     XML.addValue("syphonX", syphonX);
     XML.addValue("syphonY", syphonY);
+    XML.addValue("brightness", filterA);
+    XML.addValue("filterR", filterR);
+    XML.addValue("filterG", filterG);
+    XML.addValue("filterB", filterB);
     XML.popTag();
     XML.save(path);
 }
@@ -168,7 +178,11 @@ void ofApp::loadFromFile(const string & path) {
     syphonW = XML.getValue("syphonW", 600, 0);
     syphonH = XML.getValue("syphonH", 400, 0);
     syphonX = XML.getValue("syphonX", 300, 0);
-    syphonY = XML.getValue("syphonY", 200);
+    syphonY = XML.getValue("syphonY", 200, 0);
+    filterA = XML.getValue("brightness", 150, 0);
+    filterR = XML.getValue("filterR", 255, 0);
+    filterG = XML.getValue("filterG", 255, 0);
+    filterB = XML.getValue("filterB", 255, 0);
     XML.popTag();
 }
 
@@ -184,25 +198,19 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e) {
 void ofApp::keyPressed(int key) {
 
 	switch (key) {
-//        case OF_KEY_SHIFT:
-//            bRecordCircles = true;
-//            break;
-	case 's':
-		ledMapper->save();
-		saveToFile("GUI.xml");
-		break;
-	case 'l':
-		ledMapper->load();
-		loadFromFile("GUI.xml");
-		break;
-	case 'h':
-		bHelp = !bHelp;
-		break;
-	case OF_KEY_ESC:
-		break;
-//            bSelected = false;
-	default:
-		break;
+        case 's':
+            ledMapper->save();
+            saveToFile("GUI.xml");
+            break;
+        case 'l':
+            ledMapper->load();
+            loadFromFile("GUI.xml");
+            break;
+        case 'h':
+            bHelp = !bHelp;
+            break;
+        default:
+            break;
 	}
 
 }

@@ -13,7 +13,6 @@
 		3A68D60BBC83A9B2916DD444 /* ofxLedMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57A5AA75AAA997CD805B12E0 /* ofxLedMapper.cpp */; };
 		3A78C3D41D0492BE00AB9CA5 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A78C3D11D0492BE00AB9CA5 /* ofApp.cpp */; };
 		4D508D34156E7076531D9084 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D58DCB2C0AEFDE6171E29540 /* Syphon.framework */; };
-		53190A79A30098D5561A23A8 /* ofxFastFboReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E785EF053BC4834BCFB218F3 /* ofxFastFboReader.cpp */; };
 		5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC5DA1C87211D4F6377DA719 /* tinyxmlparser.cpp */; };
 		63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */; };
 		66CA411C5A9664E27326BF36 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C085E327DAB912CFA2A443D /* ofxTCPServer.cpp */; };
@@ -94,7 +93,6 @@
 		64C563B8158C37E9D07AE29D /* ofxDatGuiFRM.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiFRM.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiFRM.h; sourceTree = SOURCE_ROOT; };
 		71FFD50EA75BCC76F0C58D12 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = SyphonNameboundClient.h; path = ../../../addons/ofxSyphon/libs/Syphon/src/SyphonNameboundClient.h; sourceTree = SOURCE_ROOT; };
 		744031A3E8F8DAF9FE6F3EA8 /* ofxDatGuiGroups.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiGroups.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiGroups.h; sourceTree = SOURCE_ROOT; };
-		74EB26A2617E45A7823EE85C /* ofxFastFboReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxFastFboReader.h; path = ../../../addons/ofxFastFboReader/src/ofxFastFboReader.h; sourceTree = SOURCE_ROOT; };
 		787315438BF1DD00C81DF413 /* ofxDatGuiLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiLabel.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiLabel.h; sourceTree = SOURCE_ROOT; };
 		832BDC407620CDBA568B713D /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
 		896211FFD7650884437CE42C /* ofxSmartFont.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSmartFont.h; path = ../../../addons/ofxDatGui/src/libs/ofxSmartFont/ofxSmartFont.h; sourceTree = SOURCE_ROOT; };
@@ -123,7 +121,6 @@
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E723BEF4C55D236E24639608 /* ofxSyphonServerDirectory.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ofxSyphonServerDirectory.mm; path = ../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.mm; sourceTree = SOURCE_ROOT; };
-		E785EF053BC4834BCFB218F3 /* ofxFastFboReader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxFastFboReader.cpp; path = ../../../addons/ofxFastFboReader/src/ofxFastFboReader.cpp; sourceTree = SOURCE_ROOT; };
 		F399B91E98DC31CDA6DDACB4 /* ofxTCPManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTCPManager.cpp; path = ../../../addons/ofxNetwork/src/ofxTCPManager.cpp; sourceTree = SOURCE_ROOT; };
 		F59384ED57A7C6A7A8B0351D /* ofxDatGuiEvents.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiEvents.h; path = ../../../addons/ofxDatGui/src/core/ofxDatGuiEvents.h; sourceTree = SOURCE_ROOT; };
 		F66993296A3AEEC70FD444F5 /* ofxNetwork.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetwork.h; path = ../../../addons/ofxNetwork/src/ofxNetwork.h; sourceTree = SOURCE_ROOT; };
@@ -328,20 +325,11 @@
 			name = components;
 			sourceTree = "<group>";
 		};
-		AD6A40A761D375590DCD858F /* ofxFastFboReader */ = {
-			isa = PBXGroup;
-			children = (
-				F5EF49FE7FE95E581FD15846 /* src */,
-			);
-			name = ofxFastFboReader;
-			sourceTree = "<group>";
-		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
 				E6ED21CCD1B2EFAC48715C87 /* ofxLedMapper */,
 				D8DD1043C333F6F63C8685E6 /* ofxDatGui */,
-				AD6A40A761D375590DCD858F /* ofxFastFboReader */,
 				18240ECCE4076FB0833A8578 /* ofxNetwork */,
 				7F3C04577424427D348B1425 /* ofxSyphon */,
 				1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */,
@@ -415,15 +403,6 @@
 				26490D7CC31EF7D6ED5F925A /* ofxDatGui.cpp */,
 				9705D66270ED89ECA6E6FECE /* ofxDatGui.h */,
 				911FE1C75E520EE70A7B4830 /* themes */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		F5EF49FE7FE95E581FD15846 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				E785EF053BC4834BCFB218F3 /* ofxFastFboReader.cpp */,
-				74EB26A2617E45A7823EE85C /* ofxFastFboReader.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -531,7 +510,6 @@
 				D3C1C48E59CAA2D68C0DD477 /* ofxDatGuiComponent.cpp in Sources */,
 				9CF4130A7E6DA19A3DC42B9A /* ofxSmartFont.cpp in Sources */,
 				C9466C434D1CF8AB968D298D /* ofxDatGui.cpp in Sources */,
-				53190A79A30098D5561A23A8 /* ofxFastFboReader.cpp in Sources */,
 				FBF33B1A4D323955BA965F7B /* ofxLedController.cpp in Sources */,
 				3A68D60BBC83A9B2916DD444 /* ofxLedMapper.cpp in Sources */,
 				960D20B191346612D5C05A6A /* ofxTCPClient.cpp in Sources */,
@@ -683,7 +661,6 @@
 					../../../addons/ofxDatGui/src/libs,
 					../../../addons/ofxDatGui/src/libs/ofxSmartFont,
 					../../../addons/ofxDatGui/src/themes,
-					../../../addons/ofxFastFboReader/src,
 					../../../addons/ofxLedMapper/src,
 					../../../addons/ofxNetwork/src,
 					../../../addons/ofxSyphon/libs,
@@ -728,7 +705,6 @@
 					../../../addons/ofxDatGui/src/libs,
 					../../../addons/ofxDatGui/src/libs/ofxSmartFont,
 					../../../addons/ofxDatGui/src/themes,
-					../../../addons/ofxFastFboReader/src,
 					../../../addons/ofxLedMapper/src,
 					../../../addons/ofxNetwork/src,
 					../../../addons/ofxSyphon/libs,

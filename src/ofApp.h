@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include "ofxLedMapper.h"
 #include "ofxSyphon.h"
-#include "ofxFastFboReader.h"
 #include "ofxDatGui.h"
 #include "Config.h"
 
@@ -29,10 +28,10 @@ class ofApp : public ofBaseApp{
     void mousePressed(int x, int y, int button);
     void windowResized(int w, int h);
 
-    std::unique_ptr<ofxLedMapper> ledMapper;
+    unique_ptr<ofxLedMapper> ledMapper;
 
     ofFbo fbo1, fbo2;
-    ofxFastFboReader fboReader;
+
     ofPixels pix;
     ofTexture tex;
 
@@ -53,6 +52,6 @@ class ofApp : public ofBaseApp{
 
     ofxXmlSettings XML;
     
-    bool bHelp = false, bSetupGui;
+    bool bHelp = false, bSetupGui, bTestImage;
     string textHelp;
 };

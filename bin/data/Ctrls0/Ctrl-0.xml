@@ -1,65 +1,18 @@
 <CONF>
-    <LedType>4</LedType>
-    <PixInLed>3.000000000</PixInLed>
+    <colorType>2</colorType>
+    <PixInLed>1.000000000</PixInLed>
     <UdpSend>1</UdpSend>
-    <IpAddress>192.168.2.201</IpAddress>
-    <Port>3001</Port>
+    <IpAddress>192.168.1.168</IpAddress>
+    <Port>2525</Port>
 </CONF>
 <STROKE>
     <LN>
-        <TYPE>1</TYPE>
-        <fromX>15</fromX>
-        <fromY>290</fromY>
-        <toX>665</toX>
-        <toY>290</toY>
-    </LN>
-    <LN>
-        <TYPE>1</TYPE>
-        <fromX>665</fromX>
-        <fromY>285</fromY>
-        <toX>15</toX>
-        <toY>285</toY>
-    </LN>
-    <LN>
-        <TYPE>1</TYPE>
-        <fromX>15</fromX>
-        <fromY>280</fromY>
-        <toX>665</toX>
-        <toY>280</toY>
-    </LN>
-    <LN>
-        <TYPE>1</TYPE>
-        <fromX>665</fromX>
-        <fromY>275</fromY>
-        <toX>15</toX>
-        <toY>275</toY>
-    </LN>
-    <LN>
-        <TYPE>1</TYPE>
-        <fromX>15</fromX>
-        <fromY>270</fromY>
-        <toX>665</toX>
-        <toY>270</toY>
-    </LN>
-    <LN>
-        <TYPE>1</TYPE>
-        <fromX>665</fromX>
-        <fromY>265</fromY>
-        <toX>15</toX>
-        <toY>265</toY>
-    </LN>
-    <LN>
-        <TYPE>1</TYPE>
-        <fromX>15</fromX>
-        <fromY>260</fromY>
-        <toX>665</toX>
-        <toY>260</toY>
-    </LN>
-    <LN>
-        <TYPE>1</TYPE>
-        <fromX>665</fromX>
-        <fromY>255</fromY>
-        <toX>15</toX>
-        <toY>255</toY>
+        <TYPE>2</TYPE>
+        <fromX>396</fromX>
+        <fromY>300</fromY>
+        <toX>173</toX>
+        <toY>174</toY>
+        <startAngle>90.000000000</startAngle>
+        <isClockwise>0</isClockwise>
     </LN>
 </STROKE>
