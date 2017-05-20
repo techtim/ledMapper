@@ -1,9 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxLedMapper.h"
 #include "ofxSyphon.h"
 #include "ofxDatGui.h"
+
+#include "ofxLedMapper.h"
+
 #include "Config.h"
 
 class ofApp : public ofBaseApp{

@@ -8,7 +8,7 @@ void ofApp::setup(){
 	ofSetEscapeQuitsApp(false);
 	ofSetVerticalSync(true);
 	ofSetFrameRate(25);
-
+    ofSetCircleResolution(60);
     SyphonDir.setup();
     Syphon1.setup();
     syphonW = 600;
@@ -104,7 +104,7 @@ void ofApp::update(){
 		rotatePos += (360.f/ofGetFrameRate())*rotate;
 //        ofLogVerbose("COEFF: "+ofToString((360.f/ofGetFrameRate())*rotate));
 //        ofLogVerbose(ofToString(rotatePos));
-		ofRotateZ(rotatePos);
+		ofRotateDeg(rotatePos, 0, 0, 1);
 	}
     
     ofSetColor(ofColor(filterR, filterG, filterB, filterA));
