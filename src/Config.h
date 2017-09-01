@@ -13,6 +13,6 @@
 #define SYPHON_W 1600
 #define SYPHON_H 1280
 
-#define SYPHON_GUI_WIDTH 200
+#define DEFAULT_GUI_WIDTH 200
 
 #endif

@@ -42,7 +42,8 @@ void ofApp::setupGui() {
 
     gui->setAssetPath("");
     gui = new ofxDatGui(ofxDatGuiAnchor::TOP_RIGHT);
-    gui->setWidth(SYPHON_GUI_WIDTH);
+    gui->setTheme(new LedMapper::ofxDatGuiThemeLedMapper());
+    gui->setWidth(DEFAULT_GUI_WIDTH);
 
 #ifdef TARGET_WIN32
     gui->addHeader("Spout");
@@ -67,7 +68,7 @@ void ofApp::setupGui() {
     
     sInput = gui->addSlider("Y offset", 0, 1000);
     sInput->bind(syphonY);
-//    sInput->setWidth(SYPHON_GUI_WIDTH, .5f);
+//    sInput->setWidth(DEFAULT_GUI_WIDTH, .5f);
     sInput = gui->addSlider("bright", 0, 255);
     sInput->bind(filterA);
     sInput = gui->addSlider("red", 0, 255);
@@ -107,6 +108,7 @@ void ofApp::update(){
 		ofRotateDeg(rotatePos, 0, 0, 1);
 	}
     
+    ofFill();
     ofSetColor(ofColor(filterR, filterG, filterB, filterA));
     if (Syphon1.getApplicationName() != "") {
         Syphon1.draw(-syphonW/2, -syphonH/2, syphonW, syphonH);
@@ -168,6 +170,7 @@ void ofApp::saveToFile(const string & path) {
     XML.addValue("filterR", filterR);
     XML.addValue("filterG", filterG);
     XML.addValue("filterB", filterB);
+    XML.addValue("framerate", ofGetFrameRate());
     XML.popTag();
     XML.save(path);
 }
@@ -183,6 +186,7 @@ void ofApp::loadFromFile(const string & path) {
     filterR = XML.getValue("filterR", 255, 0);
     filterG = XML.getValue("filterG", 255, 0);
     filterB = XML.getValue("filterB", 255, 0);
+    ofSetFrameRate(XML.getValue("framerate", 30, 0));
     XML.popTag();
 }
 
