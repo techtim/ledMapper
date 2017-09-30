@@ -3,14 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-    ofSetLogLevel(OF_LOG_VERBOSE);
+//    ofSetLogLevel(OF_LOG_VERBOSE);
+    ofSetLogLevel(OF_LOG_WARNING);
 	ofEnableAntiAliasing();
 	ofSetEscapeQuitsApp(false);
 	ofSetVerticalSync(true);
 	ofSetFrameRate(25);
     ofSetCircleResolution(60);
-    SyphonDir.setup();
-    Syphon1.setup();
+
     syphonW = 600;
     syphonH = 400;
     syphonX = 300;
@@ -20,8 +20,18 @@ void ofApp::setup(){
 	bShowGui= true;
     bSetupGui = false;
     bTestImage = false;
+    bTestImageAnimate = false;
+    animateHue = 0.0;
     setupGui();
 
+#ifdef TARGET_WIN32
+    //Spout.init();
+    ofxSpout::init("", tex, syphonW, syphonH, false);
+#elif defined(TARGET_OSX)
+    SyphonDir.setup();
+    Syphon1.setup();
+#endif
+    
 	prev_dirIdx = -1;
 	dirIdx = 0;
 	rotatePos = 0;
@@ -80,16 +90,30 @@ void ofApp::setupGui() {
     
     ofxDatGuiToggle *tInput = gui->addToggle("test image");
     tInput->bind(bTestImage);
+    tInput = gui->addToggle("animate image");
+    tInput->bind(bTestImageAnimate);
     
     bSetupGui = true;
 }
 
+void ofApp::updateGuiPosition() {
+    gui->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
+    ledMapper->setGuiPosition(gui->getPosition().x, gui->getPosition().y+gui->getHeight());
+}
 
 //--------------------------------------------------------------
 void ofApp::update(){
 
     updateVideoServers();
     if (bSetupGui) gui->update();
+    
+#ifdef TARGET_WIN32
+    // init receiver if it's not already initialized
+    ofxSpout::initReceiver(tex);
+    // receive Spout texture
+    ofxSpout::receiveTexture(tex);
+#endif
+    
 	fbo1.begin();
 
 	ofClear(0,0,0);
@@ -110,17 +134,27 @@ void ofApp::update(){
     
     ofFill();
     ofSetColor(ofColor(filterR, filterG, filterB, filterA));
+
+#ifdef TARGET_WIN32
+    tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+#elif defined(TARGET_OSX)
     if (Syphon1.getApplicationName() != "") {
         Syphon1.draw(-syphonW/2, -syphonH/2, syphonW, syphonH);
-    } else if (bTestImage) {
+    }
+#endif
+    if (bTestImage) {
+        if (bTestImageAnimate) {
+            ofColor col;
+            col.setHsb(animateHue++, 255, filterA);
+            ofSetColor(col);
+            if (animateHue > 255) animateHue = 0.0;
+        }
         ofDrawRectangle(-syphonW/2, -syphonH/2, syphonW, syphonH);
     }
 
 	fbo1.end();
     fbo1.readToPixels(pix);
 //	fboReader.readToPixels(fbo1, pix, OF_IMAGE_COLOR);
-
-	ledMapper->update(pix);
 }
 
 //--------------------------------------------------------------
@@ -128,7 +162,8 @@ void ofApp::draw(){
 	ofSetBackgroundColor(0);
 
 	fbo1.draw(0, 0);
-
+    ledMapper->update(pix);
+    
 	if (bShowGui && bSetupGui) {
 		gui->draw();
 		ledMapper->draw();
@@ -140,7 +175,17 @@ void ofApp::draw(){
 
 void ofApp::updateVideoServers() {
 #ifdef TARGET_WIN32
-    
+    /*if (syphonList->size() != Spout.getSenderCount()) {
+     vector<string> list;
+     for (int i = 0; i < Spout.getSenderCount(); i++) {
+     list.push_back(Spout.getSenderName(i));
+     }
+     syphonList->setDropdownList(list);
+     if (prev_dirIdx == -1 && !list.empty()) {
+     dirIdx = prev_dirIdx = 0;
+     }
+     
+     }*/
 #elif defined(TARGET_OSX)
     if (syphonList->size() != SyphonDir.size()) {
         vector<string> list;
@@ -171,6 +216,8 @@ void ofApp::saveToFile(const string & path) {
     XML.addValue("filterG", filterG);
     XML.addValue("filterB", filterB);
     XML.addValue("framerate", ofGetFrameRate());
+    XML.addValue("bTestImage", bTestImage);
+    XML.addValue("bTestImageAnimate", bTestImageAnimate);
     XML.popTag();
     XML.save(path);
 }
@@ -186,6 +233,8 @@ void ofApp::loadFromFile(const string & path) {
     filterR = XML.getValue("filterR", 255, 0);
     filterG = XML.getValue("filterG", 255, 0);
     filterB = XML.getValue("filterB", 255, 0);
+    bTestImage        = XML.getValue("bTestImage", false, 0);
+    bTestImageAnimate = XML.getValue("bTestImageAnimate", false, 0);
     ofSetFrameRate(XML.getValue("framerate", 30, 0));
     XML.popTag();
 }
@@ -241,8 +290,7 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-    gui->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
-    ledMapper->setGuiPosition(gui->getPosition().x, gui->getPosition().y+gui->getHeight());
+    updateGuiPosition();
 }
 
 void ofApp::exit(){

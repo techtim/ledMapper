@@ -1,10 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxSyphon.h"
 #include "ofxDatGui.h"
-
 #include "ofxLedMapper.h"
+
+#ifdef TARGET_WIN32
+#include "ofxSpout.h"
+#elif defined(TARGET_OSX)
+#include "ofxSyphon.h"
+#endif
 
 #include "Config.h"
 
@@ -15,6 +19,7 @@ class ofApp : public ofBaseApp{
     void setupGui();
     
     void update();
+    void updateGuiPosition();
     void updateVideoServers();
     void saveToFile(const string & path);
     void loadFromFile(const string & path);
@@ -36,7 +41,8 @@ class ofApp : public ofBaseApp{
 
     ofPixels pix;
     ofTexture tex;
-
+    ofShader shader;
+    
     ofxDatGui* gui;
     ofxDatGuiDropdown* syphonList;
     bool bShowGui;
@@ -54,6 +60,7 @@ class ofApp : public ofBaseApp{
 
     ofxXmlSettings XML;
     
-    bool bHelp = false, bSetupGui, bTestImage;
+    bool bHelp = false, bSetupGui, bTestImage, bTestImageAnimate;
+    float animateHue;
     string textHelp;
 };
