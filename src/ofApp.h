@@ -43,12 +43,17 @@ class ofApp : public ofBaseApp{
     ofTexture tex;
     ofShader shader;
     
-    ofxDatGui* gui;
+    unique_ptr<ofxDatGui> gui;
+    unique_ptr<ofxDatGuiTheme> guiTheme;
     ofxDatGuiDropdown* syphonList;
     bool bShowGui;
 
+#ifdef TARGET_WIN32
+    //ofxSpout::Receiver Spout;
+#elif defined(TARGET_OSX)
     ofxSyphonClient Syphon1, Syphon2;
     ofxSyphonServerDirectory SyphonDir;
+#endif
     int prev_dirIdx, dirIdx;
 
     int idSyphonServer, syphonW, syphonH, syphonX, syphonY;

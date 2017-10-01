@@ -3,11 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-//    ofSetLogLevel(OF_LOG_VERBOSE);
+#ifndef NDEBUG
+    ofSetLogLevel(OF_LOG_VERBOSE);
+#else
     ofSetLogLevel(OF_LOG_WARNING);
+#endif
 	ofEnableAntiAliasing();
 	ofSetEscapeQuitsApp(false);
-	ofSetVerticalSync(true);
+//	ofSetVerticalSync(true);
 	ofSetFrameRate(25);
     ofSetCircleResolution(60);
 
@@ -49,10 +52,10 @@ void ofApp::setup(){
 }
 
 void ofApp::setupGui() {
-
     gui->setAssetPath("");
-    gui = new ofxDatGui(ofxDatGuiAnchor::TOP_RIGHT);
-    gui->setTheme(new LedMapper::ofxDatGuiThemeLedMapper());
+    gui = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_RIGHT);
+    guiTheme = make_unique<LedMapper::ofxDatGuiThemeLM>();
+    gui->setTheme(guiTheme.get());
     gui->setWidth(DEFAULT_GUI_WIDTH);
 
 #ifdef TARGET_WIN32
