@@ -122,18 +122,6 @@ void ofApp::update(){
 	ofClear(0,0,0);
 
 	ofTranslate(syphonX, syphonY);
-
-	if(!bRotate) {
-		rotatePos = 0;
-	} else {
-		if (abs(rotatePos%360) < 3) {
-			rotatePos = 0;
-		}
-		rotatePos += (360.f/ofGetFrameRate())*rotate;
-//        ofLogVerbose("COEFF: "+ofToString((360.f/ofGetFrameRate())*rotate));
-//        ofLogVerbose(ofToString(rotatePos));
-		ofRotateDeg(rotatePos, 0, 0, 1);
-	}
     
     ofFill();
     ofSetColor(ofColor(filterR, filterG, filterB, filterA));
@@ -243,11 +231,11 @@ void ofApp::loadFromFile(const string & path) {
 }
 
 void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e) {
+#ifdef TARGET_OSX
     if (e.child >= SyphonDir.size()) return;
     dirIdx = e.child;
     Syphon1.set(SyphonDir.getDescription(dirIdx));
-    e.target->collapse();
-    gui->collapse();
+#endif
 }
 
 //--------------------------------------------------------------
