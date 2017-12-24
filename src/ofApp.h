@@ -13,8 +13,8 @@
 #include "Config.h"
 
 class ofApp : public ofBaseApp{
-
-  public:
+    
+public:
     void setup();
     void setupGui();
     
@@ -34,11 +34,11 @@ class ofApp : public ofBaseApp{
     void mouseDragged(int x, int y, int button);
     void mousePressed(int x, int y, int button);
     void windowResized(int w, int h);
-
+    
     unique_ptr<ofxLedMapper> ledMapper;
-
+    
     ofFbo fbo1, fbo2;
-
+    
     ofPixels pix;
     ofTexture tex;
     ofShader shader;
@@ -47,7 +47,7 @@ class ofApp : public ofBaseApp{
     unique_ptr<ofxDatGuiTheme> guiTheme;
     ofxDatGuiDropdown* syphonList;
     bool bShowGui;
-
+    
 #ifdef TARGET_WIN32
     //ofxSpout::Receiver Spout;
 #elif defined(TARGET_OSX)
@@ -55,14 +55,14 @@ class ofApp : public ofBaseApp{
     ofxSyphonServerDirectory SyphonDir;
 #endif
     int prev_dirIdx, dirIdx;
-
+    
     int idSyphonServer, syphonW, syphonH, syphonX, syphonY;
     int filterA, filterR, filterG, filterB;
     ofColor colorFilter;
     bool bRotate;
     float rotate;
     int rotatePos;
-
+    
     ofxXmlSettings XML;
     
     bool bHelp = false, bSetupGui, bTestImage, bTestImageAnimate;

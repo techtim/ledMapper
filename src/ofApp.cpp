@@ -2,31 +2,32 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    
 #ifndef NDEBUG
     ofSetLogLevel(OF_LOG_VERBOSE);
 #else
-    ofSetLogLevel(OF_LOG_WARNING);
+    ofSetLogLevel(OF_LOG_NOTICE);
 #endif
-	ofEnableAntiAliasing();
-	ofSetEscapeQuitsApp(false);
-//	ofSetVerticalSync(true);
-	ofSetFrameRate(25);
-    ofSetCircleResolution(60);
 
+    ofSetEscapeQuitsApp(false);
+    ofSetVerticalSync(true);
+
+    ofEnableAntiAliasing();
+    ofSetCircleResolution(60);
+    
     syphonW = 600;
     syphonH = 400;
     syphonX = 300;
     syphonY = 200;
     loadFromFile("GUI.xml");
     
-	bShowGui= true;
+    bShowGui= true;
     bSetupGui = false;
     bTestImage = false;
     bTestImageAnimate = false;
     animateHue = 0.0;
     setupGui();
-
+    
 #ifdef TARGET_WIN32
     //Spout.init();
     ofxSpout::init("", tex, syphonW, syphonH, false);
@@ -35,20 +36,19 @@ void ofApp::setup(){
     Syphon1.setup();
 #endif
     
-	prev_dirIdx = -1;
-	dirIdx = 0;
-	rotatePos = 0;
-	fbo1.allocate(SYPHON_W, SYPHON_H, GL_RGB);
-	fbo1.begin(); ofClear(0, 0, 0); fbo1.end();
-
+    prev_dirIdx = -1;
+    dirIdx = 0;
+    rotatePos = 0;
+    fbo1.allocate(SYPHON_W, SYPHON_H, GL_RGB);
+    fbo1.begin(); ofClear(0, 0, 0); fbo1.end();
+    
     ledMapper = make_unique<ofxLedMapper>(0);
     if (bSetupGui) {
         ledMapper->setGuiPosition(gui->getPosition().x, gui->getPosition().y+gui->getHeight());
     }
-	ledMapper->load();
-
-	textHelp = " CMD+Click - add line points in active controller / SHIFT+Click add circle of points \n BKSPS+Click - on line edges to delete line \n UP/DOWN keys - switch between controllers \n 's' - save , 'l' - load \n When turn on 'Debug controller' you can switch between all controlles to show and map individual maps"; //
-
+    ledMapper->load();
+    
+    textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n UP/DOWN keys - switch between controllers \n 's' - save , 'l' - load \n When turn on 'Debug controller' you can switch between all controlles to solo each and map easily";
 }
 
 void ofApp::setupGui() {
@@ -57,18 +57,18 @@ void ofApp::setupGui() {
     guiTheme = make_unique<LedMapper::ofxDatGuiThemeLM>();
     gui->setTheme(guiTheme.get());
     gui->setWidth(DEFAULT_GUI_WIDTH);
-
+    
 #ifdef TARGET_WIN32
     gui->addHeader("Spout");
 #elif defined(TARGET_OSX)
     gui->addHeader("Syphon");
 #endif
-
+    
     syphonList = gui->addDropdown("source", vector<string>());
     syphonList->onDropdownEvent(this, &ofApp::onDropdownEvent);
     updateVideoServers();
-
-//    ofxDatGuiFolder* folder = gui->addFolder("parameters", ofColor::white);
+    
+    //    ofxDatGuiFolder* folder = gui->addFolder("parameters", ofColor::white);
     ofxDatGuiSlider* sInput;
     sInput = gui->addSlider("width", 100, 1920);
     sInput->bind(syphonW);
@@ -81,7 +81,7 @@ void ofApp::setupGui() {
     
     sInput = gui->addSlider("Y offset", 0, 1000);
     sInput->bind(syphonY);
-//    sInput->setWidth(DEFAULT_GUI_WIDTH, .5f);
+    //    sInput->setWidth(DEFAULT_GUI_WIDTH, .5f);
     sInput = gui->addSlider("bright", 0, 255);
     sInput->bind(filterA);
     sInput = gui->addSlider("red", 0, 255);
@@ -106,7 +106,7 @@ void ofApp::updateGuiPosition() {
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    
     updateVideoServers();
     if (bSetupGui) gui->update();
     
@@ -117,15 +117,15 @@ void ofApp::update(){
     ofxSpout::receiveTexture(tex);
 #endif
     
-	fbo1.begin();
-
-	ofClear(0,0,0);
-
-	ofTranslate(syphonX, syphonY);
+    fbo1.begin();
+    
+    ofClear(0,0,0);
+    
+    ofTranslate(syphonX, syphonY);
     
     ofFill();
     ofSetColor(ofColor(filterR, filterG, filterB, filterA));
-
+    
 #ifdef TARGET_WIN32
     tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 #elif defined(TARGET_OSX)
@@ -142,26 +142,26 @@ void ofApp::update(){
         }
         ofDrawRectangle(-syphonW/2, -syphonH/2, syphonW, syphonH);
     }
-
-	fbo1.end();
+    
+    fbo1.end();
     fbo1.readToPixels(pix);
-//	fboReader.readToPixels(fbo1, pix, OF_IMAGE_COLOR);
+    //	fboReader.readToPixels(fbo1, pix, OF_IMAGE_COLOR);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofSetBackgroundColor(0);
-
-	fbo1.draw(0, 0);
+    ofSetBackgroundColor(0);
+    
+    fbo1.draw(0, 0);
     ledMapper->update(pix);
     
-	if (bShowGui && bSetupGui) {
-		gui->draw();
-		ledMapper->draw();
-	}
-	ofSetWindowTitle("ledMapper (fps: "+ofToString(static_cast<int>(ofGetFrameRate()))+")");
-	ofSetColor(255,255,255,255);
-	bHelp ? ofDrawBitmapString(textHelp, 10, 730) : ofDrawBitmapString("'h' - help", 10, 790);;
+    if (bShowGui && bSetupGui) {
+        gui->draw();
+        ledMapper->draw();
+    }
+    ofSetWindowTitle("ledMapper (fps: "+ofToString(static_cast<int>(ofGetFrameRate()))+")");
+    ofSetColor(255,255,255,255);
+    bHelp ? ofDrawBitmapString(textHelp, 10, 730) : ofDrawBitmapString("'h' - help", 10, 790);;
 }
 
 void ofApp::updateVideoServers() {
@@ -206,9 +206,9 @@ void ofApp::saveToFile(const string & path) {
     XML.addValue("filterR", filterR);
     XML.addValue("filterG", filterG);
     XML.addValue("filterB", filterB);
-    XML.addValue("framerate", ofGetFrameRate());
     XML.addValue("bTestImage", bTestImage);
     XML.addValue("bTestImageAnimate", bTestImageAnimate);
+    
     XML.popTag();
     XML.save(path);
 }
@@ -226,7 +226,7 @@ void ofApp::loadFromFile(const string & path) {
     filterB = XML.getValue("filterB", 255, 0);
     bTestImage        = XML.getValue("bTestImage", false, 0);
     bTestImageAnimate = XML.getValue("bTestImageAnimate", false, 0);
-    ofSetFrameRate(XML.getValue("framerate", 30, 0));
+
     XML.popTag();
 }
 
@@ -240,8 +240,8 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-
-	switch (key) {
+    
+    switch (key) {
         case 's':
             ledMapper->save();
             saveToFile("GUI.xml");
@@ -255,28 +255,28 @@ void ofApp::keyPressed(int key) {
             break;
         default:
             break;
-	}
-
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -285,5 +285,5 @@ void ofApp::windowResized(int w, int h){
 }
 
 void ofApp::exit(){
-
+    
 }
