@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-               BuildableName = "ledMapper.app"
-               BlueprintName = "ledMapper"
-               ReferencedContainer = "container:ledMapper.xcodeproj">
+               BuildableName = "LedMapper.app"
+               BlueprintName = "LedMapper"
+               ReferencedContainer = "container:LedMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "ledMapper.app"
-            BlueprintName = "ledMapper"
-            ReferencedContainer = "container:ledMapper.xcodeproj">
+            BuildableName = "LedMapper.app"
+            BlueprintName = "LedMapper"
+            ReferencedContainer = "container:LedMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -48,13 +48,14 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "ledMapper.app"
-            BlueprintName = "ledMapper"
-            ReferencedContainer = "container:ledMapper.xcodeproj">
+            BuildableName = "LedMapper.app"
+            BlueprintName = "LedMapper"
+            ReferencedContainer = "container:LedMapper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -66,13 +67,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "ledMapper.app"
-            BlueprintName = "ledMapper"
-            ReferencedContainer = "container:ledMapper.xcodeproj">
+            BuildableName = "LedMapper.app"
+            BlueprintName = "LedMapper"
+            ReferencedContainer = "container:LedMapper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

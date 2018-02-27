@@ -1,13 +1,12 @@
 <syphon>
-    <syphonW>600</syphonW>
+    <syphonW>340</syphonW>
     <syphonH>400</syphonH>
-    <syphonX>296</syphonX>
-    <syphonY>186</syphonY>
-    <brightness>204</brightness>
+    <syphonX>197</syphonX>
+    <syphonY>219</syphonY>
+    <brightness>246</brightness>
     <filterR>255</filterR>
     <filterG>255</filterG>
     <filterB>255</filterB>
-    <framerate>20.000814438</framerate>
-    <bTestImage>1</bTestImage>
+    <bTestImage>0</bTestImage>
     <bTestImageAnimate>0</bTestImageAnimate>
 </syphon>
