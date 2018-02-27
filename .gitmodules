@@ -1,0 +1,6 @@
+[submodule "rpi_ws281x"]
+	path = rpi_ws281x
+	url = https://github.com/techtim/rpi_ws281x.git
+[submodule "rpi_sk9822"]
+	path = rpi_sk9822
+	url = https://github.com/techtim/rpi_sk9822.git
