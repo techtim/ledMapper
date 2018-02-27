@@ -1,6 +1,8 @@
 .DS_Store
 LedMapper.xcodeproj/project.xcworkspace/xcuserdata/*
+ledMapper.xcodeproj/project.xcworkspace/xcuserdata/*
 ledMapper.xcodeproj/xcuserdata/*
+
 # Compiled Object files
 *.slo
 *.lo
