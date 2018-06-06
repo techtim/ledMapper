@@ -20,13 +20,14 @@ void ofApp::setup()
     syphonH = 400;
     syphonX = 300;
     syphonY = 200;
-    loadFromFile("GUI.xml");
 
     bShowGui = true;
     bSetupGui = false;
     bTestImage = false;
     bTestImageAnimate = false;
     animateHue = 0.0;
+
+    loadFromFile("GUI.xml");
     setupGui();
 
 #ifdef TARGET_WIN32
@@ -44,9 +45,10 @@ void ofApp::setup()
     ofClear(0, 0, 0);
     fbo1.end();
 
-    ledMapper = make_unique<ofxLedMapper>();
+    ledMapper = make_unique<LedMapper::ofxLedMapper>();
     if (bSetupGui) {
-        ledMapper->setGuiPosition(gui->getPosition().x, gui->getPosition().y + gui->getHeight());
+        m_guiInput->update();
+        ledMapper->setGuiPosition(m_guiInput->getPosition().x, m_guiInput->getPosition().y + m_guiInput->getHeight());
     }
     ledMapper->load();
 
@@ -59,42 +61,55 @@ void ofApp::setup()
 
 void ofApp::setupGui()
 {
-    gui->setAssetPath("");
-    gui = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_RIGHT);
+    /// setup gui responsible for video input
+    m_guiInput->setAssetPath("");
+    m_guiInput = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_RIGHT);
     guiTheme = make_unique<LedMapper::ofxDatGuiThemeLM>();
-    gui->setTheme(guiTheme.get());
-    gui->setWidth(DEFAULT_GUI_WIDTH);
+    m_guiInput->setTheme(guiTheme.get());
+    m_guiInput->setWidth(LM_GUI_WIDTH);
 
-#ifdef TARGET_WIN32
-    gui->addHeader("Spout");
-#elif defined(TARGET_OSX)
-    gui->addHeader("Syphon");
-#endif
+    m_guiInput->addHeader("Input");
 
-    syphonList = gui->addDropdown("source", vector<string>());
+    syphonList = m_guiInput->addDropdown("source", vector<string>());
     syphonList->onDropdownEvent(this, &ofApp::onDropdownEvent);
     updateVideoServers();
 
-    gui->addSlider("width", 100, 1920)->bind(syphonW);
-    gui->addSlider("height", 100, 1920)->bind(syphonH);
-    gui->addSlider("X offset", 0, 1000)->bind(syphonX);
-    gui->addSlider("Y offset", 0, 1000)->bind(syphonY);
+    m_guiInput->addSlider("width", 100, 1920)->bind(syphonW);
+    m_guiInput->addSlider("height", 100, 1920)->bind(syphonH);
+    m_guiInput->addSlider("X offset", 0, 1000)->bind(syphonX);
+    m_guiInput->addSlider("Y offset", 0, 1000)->bind(syphonY);
 
-    gui->addSlider("bright", 0, 255)->bind(filterA);
-    gui->addSlider("red", 0, 255)->bind(filterR);
-    gui->addSlider("green", 0, 255)->bind(filterG);
-    gui->addSlider("blue", 0, 255)->bind(filterB);
+    m_guiInput->addSlider("bright", 0, 255)->bind(filterA);
+    m_guiInput->addSlider("red", 0, 255)->bind(filterR);
+    m_guiInput->addSlider("green", 0, 255)->bind(filterG);
+    m_guiInput->addSlider("blue", 0, 255)->bind(filterB);
 
-    gui->addToggle("test image")->bind(bTestImage);
-    gui->addToggle("animate image")->bind(bTestImageAnimate);
+    m_guiInput->addToggle("test image")->bind(bTestImage);
+    m_guiInput->addToggle("animate image")->bind(bTestImageAnimate);
 
+    /// Mouse Grab style buttons
+    m_guiMenu = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_LEFT);
+    m_guiMenu->setTheme(guiTheme.get());
+    m_guiMenu->setWidth(LM_GUI_WIDTH);
+
+
+    auto button = m_guiMenu->addButtonImage(LMGUIMouseSelect, "gui/mouse_select.png",
+                                            "gui/mouse_select_over.png");
+    button->setPosition(10, 0);
+    m_guiMenu->addButtonImage(LMGUIMouseGrabLine, "gui/mouse_grab_line.png",
+                                            "gui/mouse_grab_line_over.png")->setPosition(10 + button->getWidth(), 0);
+
+    m_guiMenu->addButtonImage(LMGUIMouseGrabCircle, "gui/mouse_grab_line.png", "gui/mouse_grab_line.png");
+    m_guiMenu->addButtonImage(LMGUIMouseGrabCircle, "gui/mouse_grab_line.png", "gui/mouse_grab_line.png");
+
+    m_guiMenu->onButtonEvent(this, &ofApp::onButtonClick);
     bSetupGui = true;
 }
 
 void ofApp::updateGuiPosition()
 {
-    gui->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
-    ledMapper->setGuiPosition(gui->getPosition().x, gui->getPosition().y + gui->getHeight());
+    m_guiInput->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
+    ledMapper->setGuiPosition(m_guiInput->getPosition().x, m_guiInput->getPosition().y + m_guiInput->getHeight());
 }
 
 //--------------------------------------------------------------
@@ -103,7 +118,7 @@ void ofApp::update()
 
     updateVideoServers();
     if (bSetupGui)
-        gui->update();
+        m_guiInput->update();
 
 #ifdef TARGET_WIN32
     // init receiver if it's not already initialized
@@ -116,29 +131,36 @@ void ofApp::update()
 
     ofClear(0, 0, 0);
 
-    ofTranslate(syphonX, syphonY);
+    ofTranslate(LM_GUI_TOP_BAR+syphonX, LM_GUI_TOP_BAR+syphonY);
 
     ofFill();
     ofSetColor(ofColor(filterR, filterG, filterB, filterA));
 
+//    if (m_menuSelected == "Input") {
+
 #ifdef TARGET_WIN32
-    tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+        tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 #elif defined(TARGET_OSX)
-    if (Syphon1.getApplicationName() != "") {
-        Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
-    }
+        if (Syphon1.getApplicationName() != "") {
+            Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+        }
 #endif
 
-    if (bTestImage) {
-        if (bTestImageAnimate) {
-            ofColor col;
-            col.setHsb(animateHue++, 255, filterA);
-            ofSetColor(col);
-            if (animateHue > 255)
-                animateHue = 0.0;
+        if (bTestImage) {
+            if (bTestImageAnimate) {
+                ofColor col;
+                col.setHsb(animateHue++, 255, filterA);
+                ofSetColor(col);
+                if (animateHue > 255)
+                    animateHue = 0.0;
+            }
+            ofDrawRectangle(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
         }
-        ofDrawRectangle(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
-    }
+
+//    } else if (m_menuSelected == "Controllers") {
+//
+//    }
+
 
     fbo1.end();
     fbo1.readToPixels(pix);
@@ -153,8 +175,10 @@ void ofApp::draw()
     ledMapper->update(pix);
 
     if (bShowGui && bSetupGui) {
-        gui->draw();
+        m_guiInput->draw();
         ledMapper->draw();
+        m_guiMenu->update();
+        m_guiMenu->draw();
     }
 
     ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
@@ -216,6 +240,7 @@ void ofApp::loadFromFile(const string &path)
 {
     if (!XML.loadFile(path))
         return;
+    
     XML.pushTag("syphon");
     syphonW = XML.getValue("syphonW", 600, 0);
     syphonH = XML.getValue("syphonH", 400, 0);
@@ -231,6 +256,7 @@ void ofApp::loadFromFile(const string &path)
     XML.popTag();
 }
 
+//--------------------------------------------------------------
 void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
 #ifdef TARGET_OSX
@@ -239,6 +265,17 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
     dirIdx = e.child;
     Syphon1.set(SyphonDir.getDescription(dirIdx));
 #endif
+}
+
+void ofApp::onButtonClick(ofxDatGuiButtonEvent e)
+{
+    if (e.target->getName() == LMGUIMouseSelect) {
+        ofLogWarning() << "Clicked " << LMGUIMouseSelect;
+    }
+    else if (e.target->getName() == LMGUIMouseGrabLine){
+        ofLogWarning() << "Clicked " << LMGUIMouseGrabLine;
+    }
+    
 }
 
 //--------------------------------------------------------------

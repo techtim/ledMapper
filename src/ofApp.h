@@ -28,6 +28,7 @@ public:
     void exit();
     
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
+    void onButtonClick(ofxDatGuiButtonEvent e);
     void keyPressed(int key);
     void keyReleased(int key);
     void mouseMoved(int x, int y );
@@ -35,7 +36,7 @@ public:
     void mousePressed(int x, int y, int button);
     void windowResized(int w, int h);
     
-    unique_ptr<ofxLedMapper> ledMapper;
+    unique_ptr<LedMapper::ofxLedMapper> ledMapper;
     
     ofFbo fbo1, fbo2;
     
@@ -43,10 +44,13 @@ public:
     ofTexture tex;
     ofShader shader;
     
-    unique_ptr<ofxDatGui> gui;
+    unique_ptr<ofxDatGui> m_guiInput, m_guiMenu;
     unique_ptr<ofxDatGuiTheme> guiTheme;
     ofxDatGuiDropdown* syphonList;
     bool bShowGui;
+//    unique_ptr<ofxDatGuiButtonImage> m_buttonGrabLine, m_buttonGrabCircle,
+//    m_buttonGrabMatrix, m_buttonSelect;
+    string m_menuSelected;
     
 #ifdef TARGET_WIN32
     //ofxSpout::Receiver Spout;
