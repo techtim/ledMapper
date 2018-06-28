@@ -1,23 +1,26 @@
 ledMapper
 =========
 
-App for receiving Syphon input and mapping it to LPD8806/WS2812 LED strips
+App for receiving Syphon input and mapping it to LPD8806/WS2812 LED strips using network connected RaspberryPi clients.
+
+Compiled Apps for Windows and OSX and image for RaspberryPi 3 can be found here: https://yadi.sk/d/wtCvC4sx3Ndqwv
 
 consists:
 
-- app for mapping/grabbing LEDS from Syphon input (OSX for now)
+- app for mapping/grabbing LEDS from Syphon (OSX) or Spout(WIN) input
 - executables on RPI side, listens for udp packets and send via GPIO data to LEDs
 
 Raspberry Pi 
 
 C based UDP listeners, listen localhost:3000 and sending data to GPIO pins.
 Pin numbers depends on LED IC type:
-LPD8806 - SCK > GPIO11 (SPI_CLK), DATA > GPIO10 (SPI_MOSI) (code based on https://github.com/eranrund/blinky-pants/tree/master/lpd)
-WS2812 - DATA > GPIO18 (code based on https://github.com/jgarff/rpi_ws281x)
+LPD8806/SK9822 - SCK > GPIO11 (SPI_CLK), DATA > GPIO10 (SPI_MOSI) (code based on https://github.com/eranrund/blinky-pants/tree/master/lpd)
+
+<img alt="RPI LED connection scheme" src="https://github.com/techtim/ledMapper/blob/master/RPI_3_ledMapper_pinout.png" width="420">
 
 RPI1/2 LPD8806 - tested
-
-RPI2 WS2812 - tested
+RPI3 SK9822 (BLUE PINS)
+RPI2/3 WS2812 - tested (GREEN PINS)
 
 Steps:
 
@@ -32,9 +35,12 @@ Steps:
 
 
 OSX
+LedMapper -  app made with openFrameworks tested on OS X and Windows VS12 with oF tag 0.9.8 
 
-LedMapper - app on openFrameworks (when not "Show Controllers" left/right arrows switch active controller)
-tested on OS X 10.9.5
+Drag Syphon.framework file from ofxSyphon folder into Xcode ledMapper project source tree (select copy if needed and add targets).
+
+WIN
+Read how to install ofxSpout 
 
 Kind of software manual:
 
@@ -45,6 +51,8 @@ Kind of software manual:
 	- When turn off 'Show Controlles' you can switch between all controlles to show individual maps using LEFT/RIGHT keys";
 	- 'h' - show help
 
-For more precious editing use XML files in data/Ctrls0.
+For more precious editing use XML files
+- WIN C:\Users\Public\Documents\LedMapper
+- MAC /Users/Shared/LedMapper
 
-After app run Resolume, add Syphon Server and have fun.
+When app has started run Resolume, add Syphon/Spout Server and have fun.
