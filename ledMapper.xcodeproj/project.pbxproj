@@ -122,6 +122,7 @@
 		3A245D8C1FEEE22700B6DB4E /* SyphonNameboundClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
 		3A245D8D1FEEE22700B6DB4E /* SyphonNameboundClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyphonNameboundClient.m; sourceTree = "<group>"; };
 		3A245D961FEEE25100B6DB4E /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		3A4EA48E207A441500CEF698 /* ofxDatGuiRadio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiRadio.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* LedMapperDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedMapperDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -184,6 +185,7 @@
 				3A245D321FEEAF1A00B6DB4E /* ofxDatGuiTextInput.h */,
 				3A245D331FEEAF1A00B6DB4E /* ofxDatGuiTextInputField.h */,
 				3A245D341FEEAF1A00B6DB4E /* ofxDatGuiTimeGraph.h */,
+				3A4EA48E207A441500CEF698 /* ofxDatGuiRadio.h */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -384,8 +386,8 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				3A245D241FEEAF1A00B6DB4E /* ofxDatGui */,
 				3A245D471FEEAF2000B6DB4E /* ofxLedMapper */,
+				3A245D241FEEAF1A00B6DB4E /* ofxDatGui */,
 				3A245D531FEEAF2300B6DB4E /* ofxNetwork */,
 				3A245D631FEEAF2700B6DB4E /* ofxXmlSettings */,
 				3A245D7D1FEEE22700B6DB4E /* ofxSyphon */,

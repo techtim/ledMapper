@@ -2,6 +2,7 @@
 LedMapper.xcodeproj/project.xcworkspace/xcuserdata/*
 ledMapper.xcodeproj/project.xcworkspace/xcuserdata/*
 ledMapper.xcodeproj/xcuserdata/*
+*.xcbkptlist
 
 # Compiled Object files
 *.slo

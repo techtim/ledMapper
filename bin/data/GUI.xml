@@ -1,12 +1,12 @@
 <syphon>
-    <syphonW>340</syphonW>
+    <syphonW>400</syphonW>
     <syphonH>400</syphonH>
-    <syphonX>197</syphonX>
-    <syphonY>219</syphonY>
-    <brightness>246</brightness>
+    <syphonX>200</syphonX>
+    <syphonY>200</syphonY>
+    <brightness>39</brightness>
     <filterR>255</filterR>
     <filterG>255</filterG>
     <filterB>255</filterB>
-    <bTestImage>0</bTestImage>
-    <bTestImageAnimate>0</bTestImageAnimate>
+    <bTestImage>1</bTestImage>
+    <bTestImageAnimate>1</bTestImageAnimate>
 </syphon>

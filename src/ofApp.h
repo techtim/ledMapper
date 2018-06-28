@@ -38,14 +38,14 @@ public:
     
     unique_ptr<LedMapper::ofxLedMapper> ledMapper;
     
-    ofFbo fbo1, fbo2;
+    ofFbo m_fbo;
     
     ofPixels pix;
     ofTexture tex;
     ofShader shader;
     
-    unique_ptr<ofxDatGui> m_guiInput, m_guiMenu;
-    unique_ptr<ofxDatGuiTheme> guiTheme;
+    unique_ptr<ofxDatGui> m_guiInput, m_iconsMenu;
+    unique_ptr<ofxDatGuiTheme> m_guiTheme;
     ofxDatGuiDropdown* syphonList;
     bool bShowGui;
 //    unique_ptr<ofxDatGuiButtonImage> m_buttonGrabLine, m_buttonGrabCircle,
