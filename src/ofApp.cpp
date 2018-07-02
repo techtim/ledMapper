@@ -88,25 +88,6 @@ void ofApp::setupGui()
     m_guiInput->addToggle("test image")->bind(bTestImage);
     m_guiInput->addToggle("animate image")->bind(bTestImageAnimate);
 
-    /// Mouse Grab style buttons avalable when controllers tab selected
-    /// and draw ledMappers gui
-    m_iconsMenu = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_LEFT);
-    m_iconsMenu->setTheme(m_guiTheme.get());
-    m_iconsMenu->setWidth(LM_GUI_ICON_WIDTH);
-    m_iconsMenu->setAutoDraw(false);
-
-    auto button = m_iconsMenu->addButtonImage(LMGUIMouseSelect, "gui/mouse_select.png",
-                                              "gui/mouse_select_over.png");
-
-    m_iconsMenu->addButtonImage(LMGUIMouseGrabLine, "gui/mouse_grab_line.png",
-                                "gui/mouse_grab_line_over.png");
-
-    m_iconsMenu->addButtonImage(LMGUIMouseGrabCircle, "gui/mouse_grab_line.png",
-                                "gui/mouse_grab_line.png");
-    m_iconsMenu->addButtonImage(LMGUIMouseGrabMatrix, "gui/mouse_grab_line.png",
-                                "gui/mouse_grab_line.png");
-
-    m_iconsMenu->onButtonEvent(this, &ofApp::onButtonClick);
     bSetupGui = true;
 }
 
@@ -179,8 +160,6 @@ void ofApp::draw()
         ledMapper->draw();
         m_guiInput->update();
         m_guiInput->draw();
-        m_iconsMenu->update();
-        m_iconsMenu->draw();
     }
 
     ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");

@@ -44,7 +44,7 @@ public:
     ofTexture tex;
     ofShader shader;
     
-    unique_ptr<ofxDatGui> m_guiInput, m_iconsMenu;
+    unique_ptr<ofxDatGui> m_guiInput;
     unique_ptr<ofxDatGuiTheme> m_guiTheme;
     ofxDatGuiDropdown* syphonList;
     bool bShowGui;
