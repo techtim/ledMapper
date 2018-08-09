@@ -10,8 +10,6 @@
 #include "ofxSyphon.h"
 #endif
 
-#include "Config.h"
-
 class ofApp : public ofBaseApp{
     
 public:
@@ -22,7 +20,7 @@ public:
     void updateGuiPosition();
     void updateVideoServers();
     void saveToFile(const string & path);
-    void loadFromFile(const string & path);
+    bool loadFromFile(const string & path);
     
     void draw();
     void exit();
@@ -35,6 +33,7 @@ public:
     void mouseDragged(int x, int y, int button);
     void mousePressed(int x, int y, int button);
     void windowResized(int w, int h);
+    void dragEvent(ofDragInfo info);
     
     unique_ptr<LedMapper::ofxLedMapper> ledMapper;
     

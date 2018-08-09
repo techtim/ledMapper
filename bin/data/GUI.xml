@@ -1,3 +1,9 @@
+<config>
+    <screenPosX>100</screenPosX>
+    <screenPosY>100</screenPosY>
+    <screenWidth>1377</screenWidth>
+    <screenHeight>768</screenHeight>
+</config>
 <syphon>
     <syphonW>400</syphonW>
     <syphonH>400</syphonH>

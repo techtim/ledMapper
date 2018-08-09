@@ -1,5 +1,8 @@
 #include "ofApp.h"
 
+#define SYPHON_W 1600
+#define SYPHON_H 1280
+
 //--------------------------------------------------------------
 void ofApp::setup()
 {
@@ -10,6 +13,7 @@ void ofApp::setup()
     ofSetLogLevel(OF_LOG_NOTICE);
 #endif
 
+    ofSetFrameRate(60);
     ofSetEscapeQuitsApp(false);
     ofSetVerticalSync(true);
 
@@ -27,7 +31,8 @@ void ofApp::setup()
     bTestImageAnimate = false;
     animateHue = 0.0;
 
-    loadFromFile("GUI.xml");
+    if (!loadFromFile(LedMapper::LM_CONFIG_PATH + "GUI.xml"))
+        loadFromFile("GUI.xml");
     setupGui();
 
 #ifdef TARGET_WIN32
@@ -93,6 +98,9 @@ void ofApp::setupGui()
 
 void ofApp::updateGuiPosition()
 {
+    if (!bSetupGui)
+        return;
+
     m_guiInput->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
     ledMapper->setGuiPosition(m_guiInput->getPosition().x,
                               m_guiInput->getPosition().y + m_guiInput->getHeight());
@@ -154,12 +162,25 @@ void ofApp::draw()
 
     m_fbo.draw(0, 0);
     ledMapper->update(pix);
-
+    ledMapper->draw();
     if (bShowGui && bSetupGui) {
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        m_guiInput->draw();
+        ledMapper->drawGui();
+//        m_guiMenu->update();
+//        m_guiMenu->draw();
+=======
+>>>>>>> Stashed changes
         ledMapper->drawGui();
         ledMapper->draw();
         m_guiInput->update();
         m_guiInput->draw();
+<<<<<<< Updated upstream
+=======
+>>>>>>> ec725e9230a86b72b7c5597544e2b5122eaf8b12
+>>>>>>> Stashed changes
     }
 
     ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
@@ -200,8 +221,18 @@ void ofApp::updateVideoServers()
 void ofApp::saveToFile(const string &path)
 {
     XML.clear();
+
+    XML.addTag("config");
+    XML.pushTag("config");
+    XML.addValue("screenPosX", ofGetWindowPositionX());
+    XML.addValue("screenPosY", ofGetWindowPositionY());
+    XML.addValue("screenWidth", ofGetWidth());
+    XML.addValue("screenHeight", ofGetHeight());
+    XML.popTag();
+    
     XML.addTag("syphon");
     XML.pushTag("syphon");
+
     XML.addValue("syphonW", syphonW);
     XML.addValue("syphonH", syphonH);
     XML.addValue("syphonX", syphonX);
@@ -212,16 +243,32 @@ void ofApp::saveToFile(const string &path)
     XML.addValue("filterB", filterB);
     XML.addValue("bTestImage", bTestImage);
     XML.addValue("bTestImageAnimate", bTestImageAnimate);
-
     XML.popTag();
+    
     XML.save(path);
 }
 
-void ofApp::loadFromFile(const string &path)
+bool ofApp::loadFromFile(const string &path)
 {
     if (!XML.loadFile(path))
+<<<<<<< Updated upstream
         return;
 
+=======
+<<<<<<< HEAD
+        return false;
+    
+    XML.pushTag("config");
+    ofSetWindowPosition(XML.getValue("screenPosX", 100, 0), XML.getValue("screenPosY", 100, 0));
+    ofSetWindowShape(XML.getValue("screenWidth", 1024, 0), XML.getValue("screenHeight", 768, 0));
+    
+    XML.popTag();
+    
+=======
+        return;
+
+>>>>>>> ec725e9230a86b72b7c5597544e2b5122eaf8b12
+>>>>>>> Stashed changes
     XML.pushTag("syphon");
     syphonW = XML.getValue("syphonW", 600, 0);
     syphonH = XML.getValue("syphonH", 400, 0);
@@ -233,8 +280,10 @@ void ofApp::loadFromFile(const string &path)
     filterB = XML.getValue("filterB", 255, 0);
     bTestImage = XML.getValue("bTestImage", false, 0);
     bTestImageAnimate = XML.getValue("bTestImageAnimate", false, 0);
-
+    
     XML.popTag();
+
+    return true;
 }
 
 //--------------------------------------------------------------
@@ -287,8 +336,21 @@ void ofApp::mouseMoved(int x, int y) {}
 void ofApp::mouseDragged(int x, int y, int button) {}
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {}
-
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) { updateGuiPosition(); }
+
+void ofApp::dragEvent(ofDragInfo info)
+{
+    if( info.files.size() > 0 ){
+        auto dragPt = info.position;
+        
+//        draggedImages.assign( info.files.size(), ofImage() );
+        for(unsigned int k = 0; k < info.files.size(); k++){
+            ofLogVerbose() << "DRAG FILE=" << info.files[k];
+//            draggedImages[k].load(info.files[k]);
+        }
+    }
+    
+}
 
 void ofApp::exit() {}
