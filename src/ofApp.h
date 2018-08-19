@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxDatGui.h"
 #include "ofxLedMapper.h"
+#include "Player.h"
 
 #ifdef TARGET_WIN32
 #include "ofxSpout.h"
@@ -35,8 +36,8 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo info);
     
-    unique_ptr<LedMapper::ofxLedMapper> ledMapper;
-    
+    unique_ptr<LedMapper::ofxLedMapper> m_ledMapper;
+    Player m_player;
     ofFbo m_fbo;
     
     ofPixels pix;

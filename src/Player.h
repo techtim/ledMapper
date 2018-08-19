@@ -15,11 +15,13 @@ class Player {
     std::vector<ofVideoPlayer> m_videoPlayers;
     size_t m_curContent, m_prevContent;
     long m_fadeMs, m_fadeStart;
+    long m_curVideoStart; /// hack aroung VideoPlayer.getPosition that don't work
     bool m_playing;
     
 #ifndef LED_MAPPER_NO_GUI
     unique_ptr<ofxDatGui> m_gui;
-    unique_ptr<ofxDatGuiScrollView> m_listVideos;
+    ofxDatGuiScrollView* m_listVideos;
+    unique_ptr<LedMapper::ofxDatGuiThemeLM> m_guiTheme;
 #endif
     
 public:
@@ -27,7 +29,7 @@ public:
     ~Player();
     
 	void setupGui();
-	void draw(const ofVec2f &pos, const ofVec2f &size);
+	void draw(float x,float y,float w,float h);
     void drawGui();
 
     void addContent(const string &path);

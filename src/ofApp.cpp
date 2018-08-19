@@ -50,13 +50,13 @@ void ofApp::setup()
     ofClear(0, 0, 0);
     m_fbo.end();
 
-    ledMapper = make_unique<LedMapper::ofxLedMapper>();
+    m_ledMapper = make_unique<LedMapper::ofxLedMapper>();
     if (bSetupGui) {
         m_guiInput->update();
-        ledMapper->setGuiPosition(m_guiInput->getPosition().x,
+        m_ledMapper->setGuiPosition(m_guiInput->getPosition().x,
                                   m_guiInput->getPosition().y + m_guiInput->getHeight());
     }
-    ledMapper->load();
+    m_ledMapper->load();
 
     textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object "
                "in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n "
@@ -102,7 +102,7 @@ void ofApp::updateGuiPosition()
         return;
 
     m_guiInput->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
-    ledMapper->setGuiPosition(m_guiInput->getPosition().x,
+    m_ledMapper->setGuiPosition(m_guiInput->getPosition().x,
                               m_guiInput->getPosition().y + m_guiInput->getHeight());
 }
 
@@ -146,7 +146,7 @@ void ofApp::update()
         }
         ofDrawRectangle(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
     }
-
+    m_player.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
     //    } else if (m_menuSelected == "Controllers") {
     //
     //    }
@@ -161,26 +161,14 @@ void ofApp::draw()
     ofSetBackgroundColor(0);
 
     m_fbo.draw(0, 0);
-    ledMapper->update(pix);
-    ledMapper->draw();
+    m_ledMapper->update(pix);
+    m_ledMapper->draw();
     if (bShowGui && bSetupGui) {
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        m_guiInput->draw();
-        ledMapper->drawGui();
-//        m_guiMenu->update();
-//        m_guiMenu->draw();
-=======
->>>>>>> Stashed changes
-        ledMapper->drawGui();
-        ledMapper->draw();
+        m_ledMapper->drawGui();
+        m_ledMapper->draw();
         m_guiInput->update();
         m_guiInput->draw();
-<<<<<<< Updated upstream
-=======
->>>>>>> ec725e9230a86b72b7c5597544e2b5122eaf8b12
->>>>>>> Stashed changes
+        m_player.drawGui();
     }
 
     ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
@@ -251,11 +239,6 @@ void ofApp::saveToFile(const string &path)
 bool ofApp::loadFromFile(const string &path)
 {
     if (!XML.loadFile(path))
-<<<<<<< Updated upstream
-        return;
-
-=======
-<<<<<<< HEAD
         return false;
     
     XML.pushTag("config");
@@ -264,11 +247,6 @@ bool ofApp::loadFromFile(const string &path)
     
     XML.popTag();
     
-=======
-        return;
-
->>>>>>> ec725e9230a86b72b7c5597544e2b5122eaf8b12
->>>>>>> Stashed changes
     XML.pushTag("syphon");
     syphonW = XML.getValue("syphonW", 600, 0);
     syphonH = XML.getValue("syphonH", 400, 0);
@@ -313,11 +291,11 @@ void ofApp::keyPressed(int key)
 
     switch (key) {
         case 's':
-            ledMapper->save();
+            m_ledMapper->save();
             saveToFile("GUI.xml");
             break;
         case 'l':
-            ledMapper->load();
+            m_ledMapper->load();
             loadFromFile("GUI.xml");
             break;
         case 'h':
@@ -347,6 +325,7 @@ void ofApp::dragEvent(ofDragInfo info)
 //        draggedImages.assign( info.files.size(), ofImage() );
         for(unsigned int k = 0; k < info.files.size(); k++){
             ofLogVerbose() << "DRAG FILE=" << info.files[k];
+            m_player.addContent(info.files[k]);
 //            draggedImages[k].load(info.files[k]);
         }
     }
