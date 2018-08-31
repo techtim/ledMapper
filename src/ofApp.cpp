@@ -3,6 +3,8 @@
 #define SYPHON_W 1600
 #define SYPHON_H 1280
 
+static const string s_playerFolderPath = "Player";
+
 //--------------------------------------------------------------
 void ofApp::setup()
 {
@@ -49,6 +51,8 @@ void ofApp::setup()
     m_fbo.begin();
     ofClear(0, 0, 0);
     m_fbo.end();
+
+    m_player.load(LedMapper::LM_CONFIG_PATH + s_playerFolderPath);
 
     m_ledMapper = make_unique<LedMapper::ofxLedMapper>();
     if (bSetupGui) {

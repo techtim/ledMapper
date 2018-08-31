@@ -8,6 +8,8 @@
 
 #include "Player.h"
 
+static string s_playerConfName = "playerConf.json";
+
 Player::Player()
 : m_gui(nullptr)
 , m_playing(false)
@@ -118,10 +120,8 @@ void Player::setCurrentContent(size_t index) {
     m_videoPlayers[m_curContent].play();
 }
 
-//
+/// --------------------------- GUI EVENTS ----------------------------
 
-// --------------------------- GUI EVENTS ----------------------------
-//
 void Player::onScrollViewEvent(ofxDatGuiScrollViewEvent e)
 {
     if (e.parent->getName() == LMGUIListPlaylist) {
@@ -138,3 +138,28 @@ void Player::onButtonClick(ofxDatGuiButtonEvent e){
         m_playing = !m_playing;
     }
 }
+
+/// --------------------------- LOAD / SAVE ---------------------------
+
+void Player::save(const string &path) {
+    ofJson conf;
+    if (conf.empty())
+        return;
+    auto &videos = conf.at("videos");
+
+    ofSaveJson(path+s_playerConfName, conf);
+}
+
+void Player::load(const string &path) {
+    auto json = ofLoadJson(path+s_playerConfName);
+    if (json.count("contents")) {
+        try {
+            vector<Content> contents = json.at("contents").get<vector<Content>>();
+
+        }
+        catch (...) {
+            ofLogError() << "invalid json for Player";
+        }
+    }
+}
+

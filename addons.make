@@ -1,5 +1,4 @@
 ofxDatGui
-ofxFastFboReader
 ofxLedMapper
 ofxNetwork
 ofxSyphon
