@@ -34,19 +34,21 @@ Steps:
 '/home/pi/udpWS281x &' or '/home/pi/udpLPD8806 &' for now they working on the same port so choose
 
 
-OSX
+OSX:
+
 LedMapper -  app made with openFrameworks tested on OS X and Windows VS12 with oF tag 0.9.8 
 
 Drag Syphon.framework file from ofxSyphon folder into Xcode ledMapper project source tree (select copy if needed and add targets).
 
-WIN
+WIN:
+
 Read how to install ofxSpout 
 
 Kind of software manual:
 
 	- Click on controller to activate / ESC to deactivate all 
-	- CMD+Click - add line points in active controller / SHIFT+Click add circle of points 
-	- BKSPS+Click - delete clicked point 
+	- Hold "1"/"2"/"3"+Click - add line/circle/matrix grabbing object of pixels in active controller
+	- BKSPS+Click on grabbing object - delete it 
 	- 's' - save , 'l' - load 
 	- When turn off 'Show Controlles' you can switch between all controlles to show individual maps using LEFT/RIGHT keys";
 	- 'h' - show help
