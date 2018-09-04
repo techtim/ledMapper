@@ -1,12 +1,15 @@
-#include "ofApp.h"
+#include "ledMapperApp.h"
 
 #define SYPHON_W 1600
 #define SYPHON_H 1280
 
+static const string s_configName = "config" + LedMapper::LM_CONFIG_EXTENSION;
 static const string s_playerFolderPath = "Player";
 
+using namespace LedMapper;
+
 //--------------------------------------------------------------
-void ofApp::setup()
+void ledMapperApp::setup()
 {
 
 #ifndef NDEBUG
@@ -27,15 +30,24 @@ void ofApp::setup()
     syphonX = 300;
     syphonY = 200;
 
+    m_configPath = LM_CONFIG_PATH;
+    m_configName = s_configName;
+
     bShowGui = true;
     bSetupGui = false;
     bTestImage = false;
     bTestImageAnimate = false;
     animateHue = 0.0;
 
-    if (!loadFromFile(LedMapper::LM_CONFIG_PATH + "GUI.xml"))
-        loadFromFile("GUI.xml");
-    setupGui();
+    /// Init ofxLedMapper instance before load
+    m_ledMapper = make_unique<ofxLedMapper>();
+    if (bSetupGui) {
+        m_guiInput->update();
+        m_ledMapper->setGuiPosition(m_guiInput->getPosition().x,
+                                    m_guiInput->getPosition().y + m_guiInput->getHeight());
+    }
+
+    load(m_configPath);
 
 #ifdef TARGET_WIN32
     ofxSpout::init("", tex, syphonW, syphonH, false);
@@ -52,15 +64,7 @@ void ofApp::setup()
     ofClear(0, 0, 0);
     m_fbo.end();
 
-    m_player.load(LedMapper::LM_CONFIG_PATH + s_playerFolderPath);
 
-    m_ledMapper = make_unique<LedMapper::ofxLedMapper>();
-    if (bSetupGui) {
-        m_guiInput->update();
-        m_ledMapper->setGuiPosition(m_guiInput->getPosition().x,
-                                  m_guiInput->getPosition().y + m_guiInput->getHeight());
-    }
-    m_ledMapper->load();
 
     textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object "
                "in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n "
@@ -69,19 +73,19 @@ void ofApp::setup()
                "easily";
 }
 
-void ofApp::setupGui()
+void ledMapperApp::setupGui()
 {
     /// setup gui responsible for video input
     m_guiInput->setAssetPath("");
     m_guiInput = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_RIGHT);
-    m_guiTheme = make_unique<LedMapper::ofxDatGuiThemeLM>();
+    m_guiTheme = make_unique<ofxDatGuiThemeLM>();
     m_guiInput->setTheme(m_guiTheme.get());
     m_guiInput->setWidth(LM_GUI_WIDTH);
     m_guiInput->setAutoDraw(false);
     m_guiInput->addHeader("Input");
 
     syphonList = m_guiInput->addDropdown("source", vector<string>());
-    syphonList->onDropdownEvent(this, &ofApp::onDropdownEvent);
+    syphonList->onDropdownEvent(this, &ledMapperApp::onDropdownEvent);
     updateVideoServers();
 
     m_guiInput->addSlider("width", 100, 1920)->bind(syphonW);
@@ -100,18 +104,18 @@ void ofApp::setupGui()
     bSetupGui = true;
 }
 
-void ofApp::updateGuiPosition()
+void ledMapperApp::updateGuiPosition()
 {
     if (!bSetupGui)
         return;
 
     m_guiInput->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
     m_ledMapper->setGuiPosition(m_guiInput->getPosition().x,
-                              m_guiInput->getPosition().y + m_guiInput->getHeight());
+                                m_guiInput->getPosition().y + m_guiInput->getHeight());
 }
 
 //--------------------------------------------------------------
-void ofApp::update()
+void ledMapperApp::update()
 {
     updateVideoServers();
 #ifdef TARGET_WIN32
@@ -130,7 +134,7 @@ void ofApp::update()
     ofFill();
     ofSetColor(ofColor(filterR, filterG, filterB, filterA));
 
-//    if (m_menuSelected == "Input") {
+    //    if (m_menuSelected == "Input") {
 
 #ifdef TARGET_WIN32
     tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
@@ -160,7 +164,7 @@ void ofApp::update()
 }
 
 //--------------------------------------------------------------
-void ofApp::draw()
+void ledMapperApp::draw()
 {
     ofSetBackgroundColor(0);
 
@@ -180,10 +184,10 @@ void ofApp::draw()
     bHelp ? ofDrawBitmapString(textHelp, 10, 730) : ofDrawBitmapString("'h' - help", 10, 790);
 }
 
-void ofApp::updateVideoServers()
+void ledMapperApp::updateVideoServers()
 {
 #ifdef TARGET_WIN32
-/*if (syphonList->size() != Spout.getSenderCount()) {
+/*if (bSetupGui && syphonList->size() != Spout.getSenderCount()) {
  vector<string> list;
  for (int i = 0; i < Spout.getSenderCount(); i++) {
  list.push_back(Spout.getSenderName(i));
@@ -195,7 +199,8 @@ void ofApp::updateVideoServers()
 
  }*/
 #elif defined(TARGET_OSX)
-    if (syphonList->size() != SyphonDir.size()) {
+
+    if (bSetupGui && syphonList->size() != SyphonDir.size()) {
         vector<string> list;
         for (auto &serv : SyphonDir.getServerList()) {
             list.push_back(serv.serverName + ": " + serv.appName);
@@ -207,69 +212,73 @@ void ofApp::updateVideoServers()
             Syphon1.set(SyphonDir.getDescription(dirIdx));
         }
     }
+
 #endif
 }
 
-void ofApp::saveToFile(const string &path)
+void ledMapperApp::save(const string &folderPath)
 {
+    ofJson conf;
+
     XML.clear();
 
-    XML.addTag("config");
-    XML.pushTag("config");
-    XML.addValue("screenPosX", ofGetWindowPositionX());
-    XML.addValue("screenPosY", ofGetWindowPositionY());
-    XML.addValue("screenWidth", ofGetWidth());
-    XML.addValue("screenHeight", ofGetHeight());
-    XML.popTag();
-    
-    XML.addTag("syphon");
-    XML.pushTag("syphon");
+    conf["screenPosX"] = ofGetWindowPositionX();
+    conf["screenPosY"] = ofGetWindowPositionY();
+    conf["screenWidth"] = ofGetWidth();
+    conf["screenHeight"] = ofGetHeight();
 
-    XML.addValue("syphonW", syphonW);
-    XML.addValue("syphonH", syphonH);
-    XML.addValue("syphonX", syphonX);
-    XML.addValue("syphonY", syphonY);
-    XML.addValue("brightness", filterA);
-    XML.addValue("filterR", filterR);
-    XML.addValue("filterG", filterG);
-    XML.addValue("filterB", filterB);
-    XML.addValue("bTestImage", bTestImage);
-    XML.addValue("bTestImageAnimate", bTestImageAnimate);
-    XML.popTag();
-    
-    XML.save(path);
+    conf["syphonW"] = syphonW;
+    conf["syphonH"] = syphonH;
+    conf["syphonX"] = syphonX;
+    conf["syphonY"] = syphonY;
+    conf["brightness"] = filterA;
+    conf["filterR"] = filterR;
+    conf["filterG"] = filterG;
+    conf["filterB"] = filterB;
+    conf["bTestImage"] = bTestImage;
+    conf["bTestImageAnimate"] = bTestImageAnimate;
+
+    ofSavePrettyJson(folderPath + s_configName, conf);
+
+    m_ledMapper->save(folderPath);
+    m_player.save(folderPath);
 }
 
-bool ofApp::loadFromFile(const string &path)
+bool ledMapperApp::load(const string &folderPath)
 {
-    if (!XML.loadFile(path))
-        return false;
-    
-    XML.pushTag("config");
-    ofSetWindowPosition(XML.getValue("screenPosX", 100, 0), XML.getValue("screenPosY", 100, 0));
-    ofSetWindowShape(XML.getValue("screenWidth", 1024, 0), XML.getValue("screenHeight", 768, 0));
-    
-    XML.popTag();
-    
-    XML.pushTag("syphon");
-    syphonW = XML.getValue("syphonW", 600, 0);
-    syphonH = XML.getValue("syphonH", 400, 0);
-    syphonX = XML.getValue("syphonX", 300, 0);
-    syphonY = XML.getValue("syphonY", 200, 0);
-    filterA = XML.getValue("brightness", 150, 0);
-    filterR = XML.getValue("filterR", 255, 0);
-    filterG = XML.getValue("filterG", 255, 0);
-    filterB = XML.getValue("filterB", 255, 0);
-    bTestImage = XML.getValue("bTestImage", false, 0);
-    bTestImageAnimate = XML.getValue("bTestImageAnimate", false, 0);
-    
-    XML.popTag();
+    /// if empty set default
+    m_configPath = folderPath != "" ? folderPath : LM_CONFIG_PATH;
+
+    auto conf = ofLoadJson(m_configPath + m_configName);
+
+    /// if conf empty fill with defaults
+    ofSetWindowPosition(conf.count("screenPosX") ? conf.at("screenPosX").get<int>() : 100,
+                        conf.count("screenPosY") ? conf.at("screenPosY").get<int>() : 100);
+    ofSetWindowShape(conf.count("screenWidth") ? conf.at("screenWidth").get<int>() : 1024,
+                     conf.count("screenHeight") ? conf.at("screenHeight").get<int>() : 768);
+
+    syphonW = conf.count("syphonW") ? conf.at("syphonW").get<int>() : 600;
+    syphonH = conf.count("syphonH") ? conf.at("syphonH").get<int>() : 400;
+    syphonX = conf.count("syphonX") ? conf.at("syphonX").get<int>() : 300;
+    syphonY = conf.count("syphonY") ? conf.at("syphonY").get<int>() : 200;
+    filterA = conf.count("brightness") ? conf.at("brightness").get<int>() : 150;
+    filterR = conf.count("filterR") ? conf.at("filterR").get<int>() : 255;
+    filterG = conf.count("filterG") ? conf.at("filterG").get<int>() : 255;
+    filterB = conf.count("filterB") ? conf.at("filterB").get<int>() : 255;
+    bTestImage = conf.count("bTestImage") ? conf.at("bTestImage").get<bool>() : false;
+    bTestImageAnimate
+        = conf.count("bTestImageAnimate") ? conf.at("bTestImageAnimate").get<bool>() : false;
+
+    m_ledMapper->load(folderPath);
+    m_player.load(folderPath);
+
+    setupGui();
 
     return true;
 }
 
 //--------------------------------------------------------------
-void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
+void ledMapperApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
 #ifdef TARGET_OSX
     if (e.child >= SyphonDir.size())
@@ -279,7 +288,7 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
 #endif
 }
 
-void ofApp::onButtonClick(ofxDatGuiButtonEvent e)
+void ledMapperApp::onButtonClick(ofxDatGuiButtonEvent e)
 {
     if (e.target->getName() == LMGUIMouseSelect) {
         ofLogWarning() << "Clicked " << LMGUIMouseSelect;
@@ -290,17 +299,15 @@ void ofApp::onButtonClick(ofxDatGuiButtonEvent e)
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key)
+void ledMapperApp::keyPressed(int key)
 {
 
     switch (key) {
         case 's':
-            m_ledMapper->save();
-            saveToFile("GUI.xml");
+            save(m_configPath);
             break;
         case 'l':
-            m_ledMapper->load();
-            loadFromFile("GUI.xml");
+            load(m_configPath);
             break;
         case 'h':
             bHelp = !bHelp;
@@ -311,29 +318,45 @@ void ofApp::keyPressed(int key)
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key) {}
+void ledMapperApp::keyReleased(int key) {}
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y) {}
+void ledMapperApp::mouseMoved(int x, int y) {}
 //--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button) {}
+void ledMapperApp::mouseDragged(int x, int y, int button) {}
 //--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button) {}
+void ledMapperApp::mousePressed(int x, int y, int button) {}
 //--------------------------------------------------------------
-void ofApp::windowResized(int w, int h) { updateGuiPosition(); }
+void ledMapperApp::windowResized(int w, int h) { updateGuiPosition(); }
 
-void ofApp::dragEvent(ofDragInfo info)
+void ledMapperApp::dragEvent(ofDragInfo info)
 {
-    if( info.files.size() > 0 ){
-        auto dragPt = info.position;
-        
-//        draggedImages.assign( info.files.size(), ofImage() );
-        for(unsigned int k = 0; k < info.files.size(); k++){
-            ofLogVerbose() << "DRAG FILE=" << info.files[k];
-            m_player.addContent(info.files[k]);
-//            draggedImages[k].load(info.files[k]);
+    if (info.files.empty())
+        return;
+
+    auto dragPt = info.position;
+
+    //        draggedImages.assign( info.files.size(), ofImage() );
+    for (const auto &filePath : info.files) {
+
+        /// Check for config file in folder, if found load it and folder it contains
+        if (filePath.compare(filePath.size() - LM_CONFIG_EXTENSION.size(), LM_CONFIG_EXTENSION.size(),
+                         LM_CONFIG_EXTENSION)
+            == 0) {
+            ofLogVerbose() << "!!!!!!! LedMapper CONFIG Path=" << filePath;
+            std::filesystem::path pth(filePath);
+
+            /// Update config name from default and load folder
+            m_configName = pth.filename().string();
+            load(pth.parent_path().string() + pth.preferred_separator);
+            continue;
         }
+
+        ofLogVerbose() << "DRAG FILE=" << filePath;
+        /// Try import file to Player
+        m_player.addContent(filePath);
+
     }
-    
 }
 
-void ofApp::exit() {}
+
+void ledMapperApp::exit() {}

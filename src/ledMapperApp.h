@@ -11,7 +11,7 @@
 #include "ofxSyphon.h"
 #endif
 
-class ofApp : public ofBaseApp{
+class ledMapperApp : public ofBaseApp{
     
 public:
     void setup();
@@ -20,8 +20,8 @@ public:
     void update();
     void updateGuiPosition();
     void updateVideoServers();
-    void saveToFile(const string & path);
-    bool loadFromFile(const string & path);
+    void save(const string & folderPath = "");
+    bool load(const string & folderPath = "");
     
     void draw();
     void exit();
@@ -35,7 +35,9 @@ public:
     void mousePressed(int x, int y, int button);
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo info);
-    
+
+    string m_configPath, m_configName;
+
     unique_ptr<LedMapper::ofxLedMapper> m_ledMapper;
     Player m_player;
     ofFbo m_fbo;

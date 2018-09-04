@@ -11,19 +11,20 @@
 static string s_playerConfName = "playerConf.json";
 
 Player::Player()
-: m_gui(nullptr)
-, m_playing(false)
+    : m_gui(nullptr)
+    , m_playing(false)
 {
     setupGui();
 }
 
-Player::~Player(){;}
+Player::~Player() { ; }
 
-void Player::setupGui(){
+void Player::setupGui()
+{
 #ifndef LED_MAPPER_NO_GUI
     m_gui = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_RIGHT);
     m_guiTheme = make_unique<LedMapper::ofxDatGuiThemeLM>();
-    
+
     m_gui->addHeader(LMGUIPlayer);
 
     auto togglePlay = m_gui->addToggle(LMGUITogglePlay, true);
@@ -38,13 +39,13 @@ void Player::setupGui(){
     button = m_gui->addButton(LMGUIButtonLoad);
     button->onButtonEvent(this, &Player::onButtonClick);
     button->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-    
+
     /// TODO fix for unique_ptr, need to move DatGui to smart ptrs for that
     m_listVideos = new ofxDatGuiScrollView(LMGUIListPlaylist, 10);
     m_listVideos->onScrollViewEvent(this, &Player::onScrollViewEvent);
     m_listVideos->setNumVisible(10);
     m_listVideos->setBackgroundColor(ofColor(10));
-    
+
     auto folder = m_gui->addFolder(LMGUIListPlaylist);
     folder->attachItem(m_listVideos);
     folder->expand();
@@ -55,69 +56,86 @@ void Player::setupGui(){
 #endif
 }
 
-void Player::draw(float x, float y, float w, float h) {
-    if (m_videoPlayers.empty())
+void Player::draw(float x, float y, float w, float h)
+{
+    if (m_contentPlayers.empty() || m_playing)
         return;
 
-    m_videoPlayers[m_curContent].update();
-    
+    auto nowMs = ofGetElapsedTimeMillis();
     /// Duration and position return in seconds, check if it's time to show next video
-    auto dur = m_videoPlayers[m_curContent].getDuration();
-    auto pos = m_videoPlayers[m_curContent].getPosition();
-    if (m_videoPlayers[m_curContent].getDuration() - m_videoPlayers[m_curContent].getPosition() < m_fadeMs * .001f)
+    auto len = nowMs - m_contentPlayers[m_curContent].startMs;
+    if (nowMs - m_contentPlayers[m_curContent].startMs
+        > m_contentPlayers[m_curContent].durationMs - m_fadeMs) {
         setCurrentContent(m_curContent++);
-    
-    if (ofGetElapsedTimeMillis() - m_fadeStart < m_fadeMs){
-        m_videoPlayers[m_prevContent].update();
-        m_videoPlayers[m_prevContent].draw(x, y, w, h);
     }
-        
-    m_videoPlayers[m_curContent].draw(x, y, w, h);
+
+    ofSetColor(255);
+    m_contentPlayers[m_curContent].draw(x, y, w, h);
+
+    if (nowMs - m_contentPlayers[m_prevContent].startMs < m_fadeMs
+        && nowMs - m_contentPlayers[m_prevContent].startMs
+               < m_contentPlayers[m_prevContent].durationMs) {
+        ofSetColor(ofMap(m_fadeMs - (nowMs - m_contentPlayers[m_prevContent].startMs), 0, m_fadeMs,
+                         0, 255));
+        m_contentPlayers[m_prevContent].draw(x, y, w, h);
+    }
+
 }
 
-void Player::drawGui(){
+void Player::drawGui()
+{
     if (m_gui == nullptr)
         return;
 
     m_listVideos->update();
     m_gui->update();
     m_gui->draw();
-    
 }
 
-void Player::addContent(const string &path){
+void Player::addContent(const string &path)
+{
     std::filesystem::path pth(path);
     if (!pth.has_filename())
         return;
-    
+
     ofVideoPlayer newVideo;
     newVideo.setPixelFormat(OF_PIXELS_RGBA);
     if (!newVideo.load(path))
         return;
+    Content cont;
 
-    m_listVideos->add(pth.filename().string());
-    m_videoPlayers.emplace_back(move(newVideo));
+    cont.id = pth.filename().string();
+    cont.path = path;
+    cont.durationMs = newVideo.getDuration() * 1000;
+    cont.type = "video";
+    cont.video = move(newVideo);
+    m_listVideos->add(cont.id);
+    m_contentPlayers.emplace_back(move(cont));
 }
 
-void Player::deleteContent(const size_t id){
-    if (id >=m_videoPlayers.size())
+void Player::deleteContent(const size_t id)
+{
+    if (id >= m_contentPlayers.size())
         return;
 
     m_listVideos->remove(id);
 
-    m_videoPlayers.erase(m_videoPlayers.begin()+id);
+    m_contentPlayers.erase(m_contentPlayers.begin() + id);
 }
 
-void Player::setCurrentContent(size_t index) {
-    
-    index %= m_videoPlayers.size();
+void Player::setCurrentContent(size_t index)
+{
+    index %= m_contentPlayers.size();
     ofLogNotice() << "set current Content to #" << index;
-    m_videoPlayers[m_prevContent].stop();
+    if (m_contentPlayers[m_prevContent].type == "video")
+        m_contentPlayers[m_prevContent].video.stop();
+
     m_prevContent = m_curContent;
     m_curContent = index;
-    m_fadeStart = ofGetElapsedTimeMillis();
+    m_contentPlayers[m_curContent].startMs = ofGetElapsedTimeMillis();
 
-    m_videoPlayers[m_curContent].play();
+    if (m_contentPlayers[m_prevContent].type == "video")
+        m_contentPlayers[m_curContent].video.play();
 }
 
 /// --------------------------- GUI EVENTS ----------------------------
@@ -126,14 +144,15 @@ void Player::onScrollViewEvent(ofxDatGuiScrollViewEvent e)
 {
     if (e.parent->getName() == LMGUIListPlaylist) {
         // check if item from list selected
-        if (e.target->getIndex() < m_videoPlayers.size()) {
+        if (e.target->getIndex()  < m_contentPlayers.size()) {
+            ofLogNotice() << LMGUIListPlaylist << " clicked index #" << e.index;
             setCurrentContent(e.index);
         }
-        
     }
 }
 
-void Player::onButtonClick(ofxDatGuiButtonEvent e){
+void Player::onButtonClick(ofxDatGuiButtonEvent e)
+{
     if (e.target->getName() == LMGUITogglePlay) {
         m_playing = !m_playing;
     }
@@ -141,25 +160,32 @@ void Player::onButtonClick(ofxDatGuiButtonEvent e){
 
 /// --------------------------- LOAD / SAVE ---------------------------
 
-void Player::save(const string &path) {
+void Player::save(const string &path)
+{
     ofJson conf;
-    if (conf.empty())
-        return;
-    auto &videos = conf.at("videos");
+    conf["isPlaying"] = m_playing;
+    conf["contents"] = m_contentPlayers;
 
-    ofSaveJson(path+s_playerConfName, conf);
+    ofSavePrettyJson(path + s_playerConfName, conf);
 }
 
-void Player::load(const string &path) {
-    auto json = ofLoadJson(path+s_playerConfName);
+void Player::load(const string &path)
+{
+    auto json = ofLoadJson(path + s_playerConfName);
+
+    if (json.empty())
+        return;
+
     if (json.count("contents")) {
         try {
             vector<Content> contents = json.at("contents").get<vector<Content>>();
-
+            for (const auto &c : contents) {
+                addContent(c.path);
+            }
         }
         catch (...) {
             ofLogError() << "invalid json for Player";
         }
     }
+    m_playing = json.at("isPlaying").get<bool>();
 }
-
