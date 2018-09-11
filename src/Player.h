@@ -15,7 +15,7 @@ struct Content {
     string id;
     string path;
     string type;
-    uint64_t durationMs, startMs;
+    uint64_t durationMs, startMs, endMs, fadeMs;
     ofVideoPlayer video;
     void draw(float x, float y, float w, float h)
     {
@@ -37,12 +37,14 @@ static void from_json(const ofJson &j, Content &c)
 }
 
 class Player {
-    std::vector<Content> m_contentPlayers;
-    size_t m_curContent, m_prevContent;
-    long m_fadeMs, m_fadeStart;
+    std::map<string, Content> m_contentPlayers;
+    std::vector<string> m_contentCue;
+    string m_curContent, m_prevContent;
+    uint64_t m_fadeMs, m_fadeStart;
     long m_curVideoStart; /// hack aroung VideoPlayer.getPosition that don't work
     bool m_playing;
-    string m_path;
+    string m_configPath;
+    ofColor m_colorize;
 #ifndef LED_MAPPER_NO_GUI
     unique_ptr<ofxDatGui> m_gui;
     ofxDatGuiScrollView *m_listVideos;
@@ -55,17 +57,23 @@ public:
 
     void load(const string &path);
     void save(const string &path);
-
+    void reset();
+    void setColorize(int r, int g, int b, int a);
     void setupGui();
+    void setGuiPosition(int x, int y);
     void draw(float x, float y, float w, float h);
     void drawGui();
 
     void addContent(const string &path);
-    void deleteContent(const size_t id);
-    void setCurrentContent(size_t index);
+    void deleteContent(const string &id);
+    void setCurrentContent(const string &id);
+    const string getNextContent(const string &id);
+
+    void updateListView();
 
 #ifndef LED_MAPPER_NO_GUI
     void onButtonClick(ofxDatGuiButtonEvent e);
     void onScrollViewEvent(ofxDatGuiScrollViewEvent e);
+    void onSliderEvent(ofxDatGuiSliderEvent e);
 #endif
 };

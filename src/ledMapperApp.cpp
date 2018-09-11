@@ -6,6 +6,8 @@
 static const string s_configName = "config" + LedMapper::LM_CONFIG_EXTENSION;
 static const string s_playerFolderPath = "Player";
 
+static const vector<string> s_menuItems{ "Input", "Control", "Player" };
+
 using namespace LedMapper;
 
 //--------------------------------------------------------------
@@ -15,7 +17,7 @@ void ledMapperApp::setup()
 #ifndef NDEBUG
     ofSetLogLevel(OF_LOG_VERBOSE);
 #else
-    ofSetLogLevel(OF_LOG_NOTICE);
+    ofSetLogLevel(OF_LOG_WARNING);
 #endif
 
     ofSetFrameRate(60);
@@ -33,20 +35,17 @@ void ledMapperApp::setup()
     m_configPath = LM_CONFIG_PATH;
     m_configName = s_configName;
 
+    bMenuExpanded = true;
     bShowGui = true;
     bSetupGui = false;
     bTestImage = false;
     bTestImageAnimate = false;
     animateHue = 0.0;
 
+    m_menuSelected = s_menuItems.front();
+
     /// Init ofxLedMapper instance before load
     m_ledMapper = make_unique<ofxLedMapper>();
-    if (bSetupGui) {
-        m_guiInput->update();
-        m_ledMapper->setGuiPosition(m_guiInput->getPosition().x,
-                                    m_guiInput->getPosition().y + m_guiInput->getHeight());
-    }
-
     load(m_configPath);
 
 #ifdef TARGET_WIN32
@@ -64,8 +63,6 @@ void ledMapperApp::setup()
     ofClear(0, 0, 0);
     m_fbo.end();
 
-
-
     textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object "
                "in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n "
                "UP/DOWN keys - switch between controllers \n 's' - save , 'l' - load \n When turn "
@@ -75,10 +72,23 @@ void ledMapperApp::setup()
 
 void ledMapperApp::setupGui()
 {
+    m_guiTheme = make_unique<ofxDatGuiThemeLM>();
+
+    /// setup menu gui
+    m_guiMenu = make_unique<ofxDatGuiFolder>("Menu", ofColor::fromHex(LedMapper::LM_COLOR_GREEN_DARK));
+    for (const auto &it : s_menuItems) {
+        auto but = m_guiMenu->addButton(it);
+        but->onButtonEvent(this, &ledMapperApp::onButtonClick);
+        but->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+    }
+    auto topTheme = make_unique<ofxDatGuiThemeLMTopMenu>();
+    m_guiMenu->setTheme(topTheme.get());
+    bMenuExpanded ? m_guiMenu->expand() : m_guiMenu->collapse();
+    m_guiMenu->horizontal();
+
     /// setup gui responsible for video input
     m_guiInput->setAssetPath("");
     m_guiInput = make_unique<ofxDatGui>(ofxDatGuiAnchor::TOP_RIGHT);
-    m_guiTheme = make_unique<ofxDatGuiThemeLM>();
     m_guiInput->setTheme(m_guiTheme.get());
     m_guiInput->setWidth(LM_GUI_WIDTH);
     m_guiInput->setAutoDraw(false);
@@ -102,6 +112,7 @@ void ledMapperApp::setupGui()
     m_guiInput->addToggle("animate image")->bind(bTestImageAnimate);
 
     bSetupGui = true;
+    updateGuiPosition();
 }
 
 void ledMapperApp::updateGuiPosition()
@@ -109,9 +120,10 @@ void ledMapperApp::updateGuiPosition()
     if (!bSetupGui)
         return;
 
-    m_guiInput->setPosition(ofxDatGuiAnchor::TOP_RIGHT);
-    m_ledMapper->setGuiPosition(m_guiInput->getPosition().x,
-                                m_guiInput->getPosition().y + m_guiInput->getHeight());
+    m_guiMenu->setPosition(ofGetWidth() - m_guiMenu->getWidth(), 0);
+    m_guiInput->setPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
+    m_ledMapper->setGuiPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
+    m_player.setGuiPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
 }
 
 //--------------------------------------------------------------
@@ -132,35 +144,32 @@ void ledMapperApp::update()
     ofTranslate(LM_GUI_TOP_BAR + syphonX, LM_GUI_TOP_BAR + syphonY);
 
     ofFill();
-    ofSetColor(ofColor(filterR, filterG, filterB, filterA));
-
-    //    if (m_menuSelected == "Input") {
+    ofSetColor(filterR, filterG, filterB, filterA);
 
 #ifdef TARGET_WIN32
-    tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+        tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 #elif defined(TARGET_OSX)
-    if (Syphon1.getApplicationName() != "") {
-        Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
-    }
+        if (Syphon1.getApplicationName() != "") {
+            Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+        }
 #endif
 
-    if (bTestImage) {
-        if (bTestImageAnimate) {
-            ofColor col;
-            col.setHsb(animateHue++, 255, filterA);
-            ofSetColor(col);
-            if (animateHue > 255)
-                animateHue = 0.0;
+        if (bTestImage) {
+            if (bTestImageAnimate) {
+                ofColor col;
+                col.setHsb(animateHue++, 255, filterA);
+                ofSetColor(col);
+                if (animateHue > 255)
+                    animateHue = 0.0;
+            }
+            ofDrawRectangle(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
         }
-        ofDrawRectangle(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
-    }
+
+    m_player.setColorize(filterR, filterG, filterB, filterA);
     m_player.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
-    //    } else if (m_menuSelected == "Controllers") {
-    //
-    //    }
 
     m_fbo.end();
-    m_fbo.readToPixels(pix);
+    m_fbo.readToPixels(m_pixels);
 }
 
 //--------------------------------------------------------------
@@ -169,14 +178,33 @@ void ledMapperApp::draw()
     ofSetBackgroundColor(0);
 
     m_fbo.draw(0, 0);
-    m_ledMapper->update(pix);
+
+    /// update LM with grabbed pixels
+    m_ledMapper->update(m_pixels);
+    /// draw LM grab objects
     m_ledMapper->draw();
-    if (bShowGui && bSetupGui) {
-        m_ledMapper->drawGui();
-        m_ledMapper->draw();
-        m_guiInput->update();
-        m_guiInput->draw();
-        m_player.drawGui();
+
+    /// GUI stuff
+    if (bMenuExpanded != m_guiMenu->getIsExpanded()) {
+        bMenuExpanded = m_guiMenu->getIsExpanded();
+        ofLogVerbose() << "Toggle menu to " << bMenuExpanded;
+        updateGuiPosition();
+    }
+    m_guiMenu->update();
+    m_guiMenu->draw();
+
+    if (m_guiMenu->getIsExpanded() && bSetupGui) {
+        if (m_menuSelected == "Control") {
+            m_ledMapper->drawGui();
+        }
+        else if (m_menuSelected == "Input") {
+            m_guiInput->focus();
+            m_guiInput->update();
+            m_guiInput->draw();
+        }
+        else if (m_menuSelected == "Player") {
+            m_player.drawGui();
+        }
     }
 
     ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
@@ -227,6 +255,8 @@ void ledMapperApp::save(const string &folderPath)
     conf["screenWidth"] = ofGetWidth();
     conf["screenHeight"] = ofGetHeight();
 
+    conf["bMenuExpanded"] = bMenuExpanded;
+
     conf["syphonW"] = syphonW;
     conf["syphonH"] = syphonH;
     conf["syphonX"] = syphonX;
@@ -256,6 +286,8 @@ bool ledMapperApp::load(const string &folderPath)
                         conf.count("screenPosY") ? conf.at("screenPosY").get<int>() : 100);
     ofSetWindowShape(conf.count("screenWidth") ? conf.at("screenWidth").get<int>() : 1024,
                      conf.count("screenHeight") ? conf.at("screenHeight").get<int>() : 768);
+
+    bMenuExpanded = conf.count("bMenuExpanded") ? conf.at("bMenuExpanded").get<bool>() : true;
 
     syphonW = conf.count("syphonW") ? conf.at("syphonW").get<int>() : 600;
     syphonH = conf.count("syphonH") ? conf.at("syphonH").get<int>() : 400;
@@ -290,11 +322,14 @@ void ledMapperApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
 
 void ledMapperApp::onButtonClick(ofxDatGuiButtonEvent e)
 {
-    if (e.target->getName() == LMGUIMouseSelect) {
-        ofLogWarning() << "Clicked " << LMGUIMouseSelect;
-    }
-    else if (e.target->getName() == LMGUIMouseGrabLine) {
-        ofLogWarning() << "Clicked " << LMGUIMouseGrabLine;
+    string name = e.target->getName();
+
+    /// check for Menu items click
+    if (find_if(cbegin(s_menuItems), cend(s_menuItems),
+                [&name](const string &it) { return name == it; })
+        != cend(s_menuItems)) {
+        ofLogVerbose() << "Switch Menu to " << e.target->getName();
+        m_menuSelected = e.target->getName();
     }
 }
 
@@ -339,8 +374,8 @@ void ledMapperApp::dragEvent(ofDragInfo info)
     for (const auto &filePath : info.files) {
 
         /// Check for config file in folder, if found load it and folder it contains
-        if (filePath.compare(filePath.size() - LM_CONFIG_EXTENSION.size(), LM_CONFIG_EXTENSION.size(),
-                         LM_CONFIG_EXTENSION)
+        if (filePath.compare(filePath.size() - LM_CONFIG_EXTENSION.size(),
+                             LM_CONFIG_EXTENSION.size(), LM_CONFIG_EXTENSION)
             == 0) {
             ofLogVerbose() << "!!!!!!! LedMapper CONFIG Path=" << filePath;
             std::filesystem::path pth(filePath);
@@ -354,9 +389,7 @@ void ledMapperApp::dragEvent(ofDragInfo info)
         ofLogVerbose() << "DRAG FILE=" << filePath;
         /// Try import file to Player
         m_player.addContent(filePath);
-
     }
 }
-
 
 void ledMapperApp::exit() {}

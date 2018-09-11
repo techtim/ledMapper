@@ -42,10 +42,10 @@ public:
     Player m_player;
     ofFbo m_fbo;
     
-    ofPixels pix;
+    ofPixels m_pixels;
     ofTexture tex;
-    ofShader shader;
-    
+
+    unique_ptr<ofxDatGuiFolder> m_guiMenu;
     unique_ptr<ofxDatGui> m_guiInput;
     unique_ptr<ofxDatGuiTheme> m_guiTheme;
     ofxDatGuiDropdown* syphonList;
@@ -64,14 +64,13 @@ public:
     
     int idSyphonServer, syphonW, syphonH, syphonX, syphonY;
     int filterA, filterR, filterG, filterB;
-    ofColor colorFilter;
     bool bRotate;
     float rotate;
     int rotatePos;
     
     ofxXmlSettings XML;
     
-    bool bHelp = false, bSetupGui, bTestImage, bTestImageAnimate;
+    bool bHelp = false, bSetupGui, bTestImage, bTestImageAnimate, bMenuExpanded;
     float animateHue;
     string textHelp;
 };
