@@ -60,10 +60,11 @@ public:
     void reset();
     void setColorize(int r, int g, int b, int a);
     void setupGui();
+
     void setGuiPosition(int x, int y);
     void draw(float x, float y, float w, float h);
     void drawGui();
-
+    ofxDatGui *getGui();
     void addContent(const string &path);
     void deleteContent(const string &id);
     void setCurrentContent(const string &id);

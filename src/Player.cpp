@@ -101,16 +101,15 @@ void Player::draw(float x, float y, float w, float h)
     }
 }
 
-void Player::setGuiPosition(int x, int y) {
-    m_gui->setPosition(x, y);
-}
+void Player::setGuiPosition(int x, int y) { m_gui->setPosition(x, y); }
+
+ofxDatGui *Player::getGui() { return m_gui.get(); };
 
 void Player::drawGui()
 {
     if (m_gui == nullptr)
         return;
 
-    m_gui->focus();
     m_gui->update();
     m_listVideos->update();
     m_gui->draw();

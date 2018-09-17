@@ -19,6 +19,7 @@ public:
     
     void update();
     void updateGuiPosition();
+    void selectMenuItem(const string &item);
     void updateVideoServers();
     void save(const string & folderPath = "");
     bool load(const string & folderPath = "");
@@ -48,10 +49,9 @@ public:
     unique_ptr<ofxDatGuiFolder> m_guiMenu;
     unique_ptr<ofxDatGui> m_guiInput;
     unique_ptr<ofxDatGuiTheme> m_guiTheme;
-    ofxDatGuiDropdown* syphonList;
-    bool bShowGui;
-//    unique_ptr<ofxDatGuiButtonImage> m_buttonGrabLine, m_buttonGrabCircle,
-//    m_buttonGrabMatrix, m_buttonSelect;
+    ofxDatGuiDropdown* m_syphonList;
+
+    std::function<void(void)> m_drawMenuGuiFunc;
     string m_menuSelected;
     
 #ifdef TARGET_WIN32

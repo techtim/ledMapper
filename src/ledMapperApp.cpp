@@ -36,7 +36,6 @@ void ledMapperApp::setup()
     m_configName = s_configName;
 
     bMenuExpanded = true;
-    bShowGui = true;
     bSetupGui = false;
     bTestImage = false;
     bTestImageAnimate = false;
@@ -75,7 +74,8 @@ void ledMapperApp::setupGui()
     m_guiTheme = make_unique<ofxDatGuiThemeLM>();
 
     /// setup menu gui
-    m_guiMenu = make_unique<ofxDatGuiFolder>("Menu", ofColor::fromHex(LedMapper::LM_COLOR_GREEN_DARK));
+    m_guiMenu
+        = make_unique<ofxDatGuiFolder>("Menu", ofColor::fromHex(LedMapper::LM_COLOR_GREEN_DARK));
     for (const auto &it : s_menuItems) {
         auto but = m_guiMenu->addButton(it);
         but->onButtonEvent(this, &ledMapperApp::onButtonClick);
@@ -94,8 +94,8 @@ void ledMapperApp::setupGui()
     m_guiInput->setAutoDraw(false);
     m_guiInput->addHeader("Input");
 
-    syphonList = m_guiInput->addDropdown("source", vector<string>());
-    syphonList->onDropdownEvent(this, &ledMapperApp::onDropdownEvent);
+    m_syphonList = m_guiInput->addDropdown("source", vector<string>());
+    m_syphonList->onDropdownEvent(this, &ledMapperApp::onDropdownEvent);
     updateVideoServers();
 
     m_guiInput->addSlider("width", 100, 1920)->bind(syphonW);
@@ -126,6 +126,26 @@ void ledMapperApp::updateGuiPosition()
     m_player.setGuiPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
 }
 
+/// on menu item selection focus on needed gui and set needed lambda to draw items gui
+void ledMapperApp::selectMenuItem(const string &item)
+{
+    if (m_menuSelected == "Control") {
+        m_ledMapper->getGui()->focus();
+        m_drawMenuGuiFunc = [this]() { m_ledMapper->drawGui(); };
+    }
+    else if (m_menuSelected == "Input") {
+        m_guiInput->focus();
+        m_drawMenuGuiFunc = [this]() {
+            m_guiInput->update();
+            m_guiInput->draw();
+        };
+    }
+    else if (m_menuSelected == "Player") {
+        m_player.getGui()->focus();
+        m_drawMenuGuiFunc = [this]() { m_player.drawGui(); };
+    }
+}
+
 //--------------------------------------------------------------
 void ledMapperApp::update()
 {
@@ -141,30 +161,32 @@ void ledMapperApp::update()
 
     ofClear(0, 0, 0);
 
-    ofTranslate(LM_GUI_TOP_BAR + syphonX, LM_GUI_TOP_BAR + syphonY);
+    ofTranslate(syphonX, syphonY);
 
     ofFill();
     ofSetColor(filterR, filterG, filterB, filterA);
 
+    /// Platform specific video stream input draw
 #ifdef TARGET_WIN32
-        tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 #elif defined(TARGET_OSX)
-        if (Syphon1.getApplicationName() != "") {
-            Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
-        }
+    if (Syphon1.getApplicationName() != "") {
+        Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    }
 #endif
 
-        if (bTestImage) {
-            if (bTestImageAnimate) {
-                ofColor col;
-                col.setHsb(animateHue++, 255, filterA);
-                ofSetColor(col);
-                if (animateHue > 255)
-                    animateHue = 0.0;
-            }
-            ofDrawRectangle(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    if (bTestImage) {
+        if (bTestImageAnimate) {
+            ofColor col;
+            col.setHsb(animateHue++, 255, filterA);
+            ofSetColor(col);
+            if (animateHue > 255)
+                animateHue = 0.0;
         }
+        ofDrawRectangle(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    }
 
+    /// update color filter settings and draw playing video if has one
     m_player.setColorize(filterR, filterG, filterB, filterA);
     m_player.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 
@@ -179,7 +201,7 @@ void ledMapperApp::draw()
 
     m_fbo.draw(0, 0);
 
-    /// update LM with grabbed pixels
+    /// update LM with grabbed pixels to send them
     m_ledMapper->update(m_pixels);
     /// draw LM grab objects
     m_ledMapper->draw();
@@ -194,17 +216,7 @@ void ledMapperApp::draw()
     m_guiMenu->draw();
 
     if (m_guiMenu->getIsExpanded() && bSetupGui) {
-        if (m_menuSelected == "Control") {
-            m_ledMapper->drawGui();
-        }
-        else if (m_menuSelected == "Input") {
-            m_guiInput->focus();
-            m_guiInput->update();
-            m_guiInput->draw();
-        }
-        else if (m_menuSelected == "Player") {
-            m_player.drawGui();
-        }
+        m_drawMenuGuiFunc();
     }
 
     ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
@@ -215,12 +227,12 @@ void ledMapperApp::draw()
 void ledMapperApp::updateVideoServers()
 {
 #ifdef TARGET_WIN32
-/*if (bSetupGui && syphonList->size() != Spout.getSenderCount()) {
+/*if (bSetupGui && m_syphonList->size() != Spout.getSenderCount()) {
  vector<string> list;
  for (int i = 0; i < Spout.getSenderCount(); i++) {
  list.push_back(Spout.getSenderName(i));
  }
- syphonList->setDropdownList(list);
+ m_syphonList->setDropdownList(list);
  if (prev_dirIdx == -1 && !list.empty()) {
  dirIdx = prev_dirIdx = 0;
  }
@@ -228,12 +240,12 @@ void ledMapperApp::updateVideoServers()
  }*/
 #elif defined(TARGET_OSX)
 
-    if (bSetupGui && syphonList->size() != SyphonDir.size()) {
+    if (bSetupGui && m_syphonList->size() != SyphonDir.size()) {
         vector<string> list;
         for (auto &serv : SyphonDir.getServerList()) {
             list.push_back(serv.serverName + ": " + serv.appName);
         }
-        syphonList->setDropdownList(list);
+        m_syphonList->setDropdownList(list);
         // -1 initial value
         if (Syphon1.getApplicationName() == "" && !list.empty()) {
             dirIdx = prev_dirIdx = 0;
@@ -256,6 +268,7 @@ void ledMapperApp::save(const string &folderPath)
     conf["screenHeight"] = ofGetHeight();
 
     conf["bMenuExpanded"] = bMenuExpanded;
+    conf["menuSelected"] = m_menuSelected;
 
     conf["syphonW"] = syphonW;
     conf["syphonH"] = syphonH;
@@ -288,6 +301,8 @@ bool ledMapperApp::load(const string &folderPath)
                      conf.count("screenHeight") ? conf.at("screenHeight").get<int>() : 768);
 
     bMenuExpanded = conf.count("bMenuExpanded") ? conf.at("bMenuExpanded").get<bool>() : true;
+    m_menuSelected
+        = conf.count("menuSelected") ? conf.at("menuSelected").get<string>() : s_menuItems.front();
 
     syphonW = conf.count("syphonW") ? conf.at("syphonW").get<int>() : 600;
     syphonH = conf.count("syphonH") ? conf.at("syphonH").get<int>() : 400;
@@ -305,6 +320,7 @@ bool ledMapperApp::load(const string &folderPath)
     m_player.load(folderPath);
 
     setupGui();
+    selectMenuItem(m_menuSelected);
 
     return true;
 }
@@ -330,6 +346,7 @@ void ledMapperApp::onButtonClick(ofxDatGuiButtonEvent e)
         != cend(s_menuItems)) {
         ofLogVerbose() << "Switch Menu to " << e.target->getName();
         m_menuSelected = e.target->getName();
+        selectMenuItem(m_menuSelected);
     }
 }
 
