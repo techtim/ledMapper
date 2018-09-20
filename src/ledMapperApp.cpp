@@ -130,7 +130,7 @@ void ledMapperApp::updateGuiPosition()
 void ledMapperApp::selectMenuItem(const string &item)
 {
     if (m_menuSelected == "Control") {
-        m_ledMapper->getGui()->focus();
+        m_ledMapper->setGuiActive();
         m_drawMenuGuiFunc = [this]() { m_ledMapper->drawGui(); };
     }
     else if (m_menuSelected == "Input") {

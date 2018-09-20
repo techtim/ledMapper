@@ -39,3 +39,6 @@ set( OFX_ADDONS_ACTIVE
 include( ${OF_DIRECTORY_BY_USER}/addons/ofxCMake/modules/main.cmake )
 # =========================================================================
 
+if( APPLE ) # Set App icon
+    set_source_files_properties(ledMapper.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+endif()
