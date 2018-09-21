@@ -6,7 +6,7 @@
 #include "Player.h"
 
 #ifdef TARGET_WIN32
-#include "ofxSpout.h"
+#include "ofxSpout2Receiver.h"
 #elif defined(TARGET_OSX)
 #include "ofxSyphon.h"
 #endif
@@ -56,6 +56,7 @@ public:
     
 #ifdef TARGET_WIN32
     //ofxSpout::Receiver Spout;
+    ofxSpout2::Receiver m_spoutIn;
 #elif defined(TARGET_OSX)
     ofxSyphonClient Syphon1, Syphon2;
     ofxSyphonServerDirectory SyphonDir;

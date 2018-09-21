@@ -48,7 +48,7 @@ void ledMapperApp::setup()
     load(m_configPath);
 
 #ifdef TARGET_WIN32
-    ofxSpout::init("", tex, syphonW, syphonH, false);
+    m_spoutIn.setup();
 #elif defined(TARGET_OSX)
     SyphonDir.setup();
     Syphon1.setup();
@@ -151,10 +151,8 @@ void ledMapperApp::update()
 {
     updateVideoServers();
 #ifdef TARGET_WIN32
-    // init receiver if it's not already initialized
-    ofxSpout::initReceiver(tex);
     // receive Spout texture
-    ofxSpout::receiveTexture(tex);
+    m_spoutIn.updateTexture();
 #endif
 
     m_fbo.begin();
@@ -168,7 +166,7 @@ void ledMapperApp::update()
 
     /// Platform specific video stream input draw
 #ifdef TARGET_WIN32
-    tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    m_spoutIn.getTexture().draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 #elif defined(TARGET_OSX)
     if (Syphon1.getApplicationName() != "") {
         Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
@@ -364,6 +362,11 @@ void ledMapperApp::keyPressed(int key)
         case 'h':
             bHelp = !bHelp;
             break;
+#ifdef TARGET_WIN32
+        case 'i':
+            m_spoutIn.showSenders();
+			break;
+#endif
         default:
             break;
     }
@@ -399,7 +402,9 @@ void ledMapperApp::dragEvent(ofDragInfo info)
 
             /// Update config name from default and load folder
             m_configName = pth.filename().string();
-            load(pth.parent_path().string() + pth.preferred_separator);
+            string containingFolder = pth.parent_path().string();
+            containingFolder.push_back(pth.preferred_separator);
+            load(containingFolder);
             continue;
         }
 
@@ -409,4 +414,4 @@ void ledMapperApp::dragEvent(ofDragInfo info)
     }
 }
 
-void ledMapperApp::exit() {}
+void ledMapperApp::exit() { m_spoutIn.exit(); }
