@@ -62,6 +62,8 @@ void ledMapperApp::setup()
     ofClear(0, 0, 0);
     m_fbo.end();
 
+    ofSetWindowTitle("ledMapper"); // (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
+
     textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object "
                "in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n "
                "UP/DOWN keys - switch between controllers \n 's' - save , 'l' - load \n When turn "
@@ -217,7 +219,6 @@ void ledMapperApp::draw()
         m_drawMenuGuiFunc();
     }
 
-    ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
     ofSetColor(255, 255, 255, 255);
     bHelp ? ofDrawBitmapString(textHelp, 10, 730) : ofDrawBitmapString("'h' - help", 10, 790);
 }
@@ -414,4 +415,8 @@ void ledMapperApp::dragEvent(ofDragInfo info)
     }
 }
 
-void ledMapperApp::exit() { m_spoutIn.exit(); }
+void ledMapperApp::exit() {
+#ifdef TARGET_WIN32
+    m_spoutIn.exit();
+#endif
+}
