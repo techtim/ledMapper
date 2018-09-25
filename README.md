@@ -1,7 +1,8 @@
 <p align="center">
 <img alt="ledMapper icon" src="https://github.com/techtim/ledMapper/blob/master/images/ledMapper_icon_200.png" width="200"></p>
 
-#ledMapper
+ledMapper
+===
 
 Open-source application for receiving input from Syphon/Spout or built-in video player and mapping it to distributed ligting system based on network connected RaspberryPi clients serving as controllers for digital LED ICs like LPD8806, WS281X, SK9822, SK6822, etc.
 
@@ -16,8 +17,15 @@ consists:
 - app for mapping/grabbing LEDS from Syphon (OSX) or Spout(WIN) or built-in video player (ver 0.1)
 - executables on RPI side, listens for udp packets and send via GPIO data to LEDs
 
-###Raspberry Pi 
+For more precious editing use Controllers XML files
+- WIN C:\Users\Public\Documents\LedMapper
+- MAC /Users/Shared/LedMapper
 
+When app has started run Resolume, add Syphon/Spout Server and have fun.
+
+
+Raspberry Pi 
+---
 C++ based UDP listener, listen localhost:3001 and sending data to GPIO pins. (https://github.com/techtim/lmListener)
 
 *NOTE: In Alpha version: 3000 port - for DATA+CLOCK ICs (SK9822...), 3001 - for DATA only ICs WS281X, SK6812*
@@ -31,9 +39,3 @@ WS281X driver from https://github.com/jgarff/rpi_ws281x using 2 channel PWM on G
 RPI1/2 LPD8806 - tested
 RPI3 SK9822 (BLUE PINS)
 RPI2/3 WS2812 - tested (GREEN PINS)
-
-For more precious editing use XML files
-- WIN C:\Users\Public\Documents\LedMapper
-- MAC /Users/Shared/LedMapper
-
-When app has started run Resolume, add Syphon/Spout Server and have fun.
