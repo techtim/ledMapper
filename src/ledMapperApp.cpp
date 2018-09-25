@@ -104,10 +104,10 @@ void ledMapperApp::setupGui()
     m_syphonList->onDropdownEvent(this, &ledMapperApp::onDropdownEvent);
     updateVideoServers();
 
-    m_guiInput->addSlider("width", 100, 1920)->bind(syphonW);
-    m_guiInput->addSlider("m_spoutInheight", 100, 1920)->bind(syphonH);
-    m_guiInput->addSlider("X offset", 0, 1000)->bind(syphonX);
-    m_guiInput->addSlider("Y offset", 0, 1000)->bind(syphonY);
+    m_guiInput->addSlider("width", 400, 1920)->bind(syphonW);
+    m_guiInput->addSlider("height", 200, 1920)->bind(syphonH);
+    m_guiInput->addSlider("X offset", 210, 1000)->bind(syphonX);
+    m_guiInput->addSlider("Y offset", 110, 1000)->bind(syphonY);
 
     m_guiInput->addSlider("bright", 0, 255)->bind(filterA);
     m_guiInput->addSlider("red", 0, 255)->bind(filterR);
