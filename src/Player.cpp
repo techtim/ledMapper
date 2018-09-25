@@ -176,9 +176,9 @@ void Player::addContent(const string &path)
 
 void Player::deleteContent(const string &id)
 {
-    auto it = find_if(begin(m_contentCue), end(m_contentCue),
+    auto it = find_if(std::cbegin(m_contentCue), std::cend(m_contentCue),
                       [&id](const string &cueId) { return cueId == id; });
-    if (it == end(m_contentCue))
+    if (it == std::cend(m_contentCue))
         return;
 
     /// if deleting current set next content
@@ -245,12 +245,12 @@ const string Player::getNextContent(const string &id)
     if (m_contentCue.empty())
         return "";
 
-    auto it = find_if(cbegin(m_contentCue), cend(m_contentCue),
+    auto it = find_if(std::cbegin(m_contentCue), std::cend(m_contentCue),
                       [&id](const string &cueId) { return cueId == id; });
     ofLogVerbose() << "[Player] getNextContent id=" << *it;
     /// if id not found or is last one return first in cue
-    return it == cend(m_contentCue) || it + 1 == cend(m_contentCue) ? m_contentCue.front()
-                                                                    : *(it + 1);
+    return (it == m_contentCue.cend() || (it + 1) == m_contentCue.cend()) ? m_contentCue.front()
+                                                                          : *(it + 1);
 }
 
 void Player::setColorize(int r, int g, int b, int a) { m_colorize.set(r, g, b, a); }

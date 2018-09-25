@@ -1,5 +1,6 @@
-#include "ledMapperApp.h"
 #include "ofMain.h"
+
+#include "ledMapperApp.h"
 
 //========================================================================
 int main()

@@ -62,7 +62,11 @@ void ledMapperApp::setup()
     ofClear(0, 0, 0);
     m_fbo.end();
 
-    ofSetWindowTitle("ledMapper"); // (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
+#ifndef NDEBUG
+    ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
+#elif
+    ofSetWindowTitle("ledMapper");
+#endif
 
     textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object "
                "in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n "
@@ -101,7 +105,7 @@ void ledMapperApp::setupGui()
     updateVideoServers();
 
     m_guiInput->addSlider("width", 100, 1920)->bind(syphonW);
-    m_guiInput->addSlider("height", 100, 1920)->bind(syphonH);
+    m_guiInput->addSlider("m_spoutInheight", 100, 1920)->bind(syphonH);
     m_guiInput->addSlider("X offset", 0, 1000)->bind(syphonX);
     m_guiInput->addSlider("Y offset", 0, 1000)->bind(syphonY);
 
@@ -340,9 +344,9 @@ void ledMapperApp::onButtonClick(ofxDatGuiButtonEvent e)
     string name = e.target->getName();
 
     /// check for Menu items click
-    if (find_if(cbegin(s_menuItems), cend(s_menuItems),
+    if (find_if(begin(s_menuItems), end(s_menuItems),
                 [&name](const string &it) { return name == it; })
-        != cend(s_menuItems)) {
+        != end(s_menuItems)) {
         ofLogVerbose() << "Switch Menu to " << e.target->getName();
         m_menuSelected = e.target->getName();
         selectMenuItem(m_menuSelected);
@@ -366,7 +370,7 @@ void ledMapperApp::keyPressed(int key)
 #ifdef TARGET_WIN32
         case 'i':
             m_spoutIn.showSenders();
-			break;
+            break;
 #endif
         default:
             break;
@@ -415,7 +419,8 @@ void ledMapperApp::dragEvent(ofDragInfo info)
     }
 }
 
-void ledMapperApp::exit() {
+void ledMapperApp::exit()
+{
 #ifdef TARGET_WIN32
     m_spoutIn.exit();
 #endif
