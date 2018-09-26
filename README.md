@@ -9,8 +9,11 @@ Open-source application for receiving input from Syphon/Spout or built-in video 
 <p align="center">
 <img alt="ledMapper screenshot" src="https://github.com/techtim/ledMapper/blob/master/images/ledMapper_screenshot.png" width="800"></p>
 
+Check [Interface Description](https://github.com/techtim/ledMapper/wiki/ledMapper-Interface) page for details.
+
 Compiled Apps for Windows and OSX and image for RaspberryPi 3 can be found here: https://yadi.sk/d/wtCvC4sx3Ndqwv
-*NOTE: RPI Image is for Version 0.1 isn't ready, current image compatible with Alpha executables. For 0.1 lmListener needs to be installed.*
+
+*NOTE: RPI Image is for Version 0.1 isn't ready, current image compatible with Alpha executables. For 0.1 [lmListener](https://github.com/techtim/lmListener) needs to be installed.*
 
 consists:
 
