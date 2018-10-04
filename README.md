@@ -11,9 +11,13 @@ Open-source application for receiving input from Syphon/Spout or built-in video 
 
 Check [Interface Description](https://github.com/techtim/ledMapper/wiki/ledMapper-Interface) page for details.
 
-Compiled Apps for Windows and OSX and image for RaspberryPi 3 can be found here: https://yadi.sk/d/wtCvC4sx3Ndqwv
+Compiled Apps for Windows and OSX and image for RaspberryPi 3:
 
-*NOTE: RPI Image is for Version 0.1 isn't ready, current image compatible with Alpha executables. For 0.1 [lmListener](https://github.com/techtim/lmListener) needs to be installed.*
+OSX  |   WIN    |  RPI image
+:---: | :---: | :---:
+[.app v0.1](http://tvl.io/download/ledMapperOSX_0.1.zip) | [.exe v0.1](http://tvl.io/download/ledMapperWIN_0.1.zip) | [image alpha](http://tvl.io/download/ledMapperTvl_Alpha_image.7z)
+
+*NOTE: RPI Image is for Version 0.1 isn't ready, current image compatible with v0.1 only for WS281X output. For 0.1 [lmListener](https://github.com/techtim/lmListener) needs to be installed manually on RPI.*
 
 consists:
 
@@ -21,8 +25,8 @@ consists:
 - executables on RPI side, listens for udp packets and send via GPIO data to LEDs
 
 For more precious editing use Controllers XML files
-- WIN C:\Users\Public\Documents\LedMapper
-- MAC /Users/Shared/LedMapper
+- __WIN__ C:\Users\Public\Documents\LedMapper
+- __MAC__ /Users/Shared/LedMapper
 
 When app has started run Resolume, add Syphon/Spout Server and have fun.
 
@@ -34,8 +38,8 @@ C++ based UDP listener, listen localhost:3001 and sending data to GPIO pins. (ht
 *NOTE: In Alpha version: 3000 port - for DATA+CLOCK ICs (SK9822...), 3001 - for DATA only ICs WS281X, SK6812*
 
 Pin numbers depends on LED IC type:
-LPD8806/SK9822 - SCK > GPIO11 (SPI_CLK), DATA > GPIO10 (SPI_MOSI) (code based on https://github.com/eranrund/blinky-pants/tree/master/lpd)
-WS281X driver from https://github.com/jgarff/rpi_ws281x using 2 channel PWM on GPIO12 and GPIO13
+- LPD8806/SK9822 - SCK > GPIO11 (SPI_CLK), DATA > GPIO10 (SPI_MOSI) (code based on https://github.com/eranrund/blinky-pants/tree/master/lpd)
+- WS281X driver from https://github.com/jgarff/rpi_ws281x using 2 channel PWM on GPIO12 and GPIO13
 
 <img alt="RPI LED connection scheme" src="https://github.com/techtim/ledMapper/blob/master/images/RPI_3_ledMapper_pinout.png" width="420">
 
