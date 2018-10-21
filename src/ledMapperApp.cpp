@@ -1,7 +1,7 @@
 #include "ledMapperApp.h"
 
-#define SYPHON_W 1600
-#define SYPHON_H 1280
+#define SYPHON_W 1920
+#define SYPHON_H 1080
 
 static const string s_configName = "config" + LedMapper::LM_CONFIG_EXTENSION;
 static const string s_playerFolderPath = "Player";
@@ -209,6 +209,7 @@ void ledMapperApp::draw()
 {
     ofSetBackgroundColor(0);
 
+	ofSetColor(255);
     m_fbo.draw(0, 0);
 
     /// update LM with grabbed pixels to send them
@@ -323,9 +324,9 @@ bool ledMapperApp::load(const string &folderPath)
     filterR = conf.count("filterR") ? conf.at("filterR").get<int>() : 255;
     filterG = conf.count("filterG") ? conf.at("filterG").get<int>() : 255;
     filterB = conf.count("filterB") ? conf.at("filterB").get<int>() : 255;
-    bTestImage = conf.count("bTestImage") ? conf.at("bTestImage").get<bool>() : false;
+    bTestImage = conf.count("bTestImage") ? conf.at("bTestImage").get<bool>() : true;
     bTestImageAnimate
-        = conf.count("bTestImageAnimate") ? conf.at("bTestImageAnimate").get<bool>() : false;
+        = conf.count("bTestImageAnimate") ? conf.at("bTestImageAnimate").get<bool>() : true;
 
     m_ledMapper->load(folderPath);
     m_player->load(folderPath);
