@@ -19,6 +19,14 @@ void ledMapperApp::setup()
 #else
     ofSetLogLevel(OF_LOG_WARNING);
 #endif
+    
+#ifdef WIN32
+    // no-op
+#elif defined(__APPLE__)
+    ofSetDataPathRoot("../Resources/");
+#elif defined(TARGET_LINUX)
+    // no-op
+#endif
 
     ofSetFrameRate(60);
     ofSetEscapeQuitsApp(false);
@@ -29,8 +37,8 @@ void ledMapperApp::setup()
 
     syphonW = 600;
     syphonH = 400;
-    syphonX = 300;
-    syphonY = 200;
+    syphonX = 310;
+    syphonY = 210;
 
     m_configPath = LM_CONFIG_PATH;
     m_configName = s_configName;
@@ -43,8 +51,10 @@ void ledMapperApp::setup()
 
     m_menuSelected = s_menuItems.front();
 
-    /// Init ofxLedMapper instance before load
+    /// Init ofxLedMapper and Player instances before load
     m_ledMapper = make_unique<ofxLedMapper>();
+    m_player = make_unique<Player>();
+    
     load(m_configPath);
 
 #ifdef TARGET_WIN32
@@ -61,13 +71,9 @@ void ledMapperApp::setup()
     m_fbo.begin();
     ofClear(0, 0, 0);
     m_fbo.end();
-
-#ifndef NDEBUG
-    ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
-#elif
-    ofSetWindowTitle("ledMapper");
-#endif
-
+    
+    ofSetWindowTitle("ledMapper TVL");
+    
     textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object "
                "in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n "
                "UP/DOWN keys - switch between controllers \n 's' - save , 'l' - load \n When turn "
@@ -104,10 +110,10 @@ void ledMapperApp::setupGui()
     m_syphonList->onDropdownEvent(this, &ledMapperApp::onDropdownEvent);
     updateVideoServers();
 
-    m_guiInput->addSlider("width", 400, 1920)->bind(syphonW);
-    m_guiInput->addSlider("height", 200, 1920)->bind(syphonH);
-    m_guiInput->addSlider("X offset", 210, 1000)->bind(syphonX);
-    m_guiInput->addSlider("Y offset", 110, 1000)->bind(syphonY);
+    m_guiInput->addSlider("width", 100, 1920)->bind(syphonW);
+    m_guiInput->addSlider("height", 100, 1920)->bind(syphonH);
+    m_guiInput->addSlider("X offset", 0, 1000)->bind(syphonX);
+    m_guiInput->addSlider("Y offset", 0, 1000)->bind(syphonY);
 
     m_guiInput->addSlider("bright", 0, 255)->bind(filterA);
     m_guiInput->addSlider("red", 0, 255)->bind(filterR);
@@ -129,7 +135,7 @@ void ledMapperApp::updateGuiPosition()
     m_guiMenu->setPosition(ofGetWidth() - m_guiMenu->getWidth(), 0);
     m_guiInput->setPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
     m_ledMapper->setGuiPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
-    m_player.setGuiPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
+    m_player->setGuiPosition(ofGetWidth() - LM_GUI_WIDTH, LM_GUI_TOP_BAR);
 }
 
 /// on menu item selection focus on needed gui and set needed lambda to draw items gui
@@ -147,8 +153,8 @@ void ledMapperApp::selectMenuItem(const string &item)
         };
     }
     else if (m_menuSelected == "Player") {
-        m_player.getGui()->focus();
-        m_drawMenuGuiFunc = [this]() { m_player.drawGui(); };
+        m_player->getGui()->focus();
+        m_drawMenuGuiFunc = [this]() { m_player->drawGui(); };
     }
 }
 
@@ -191,8 +197,8 @@ void ledMapperApp::update()
     }
 
     /// update color filter settings and draw playing video if has one
-    m_player.setColorize(filterR, filterG, filterB, filterA);
-    m_player.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    m_player->setColorize(filterR, filterG, filterB, filterA);
+    m_player->draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 
     m_fbo.end();
     m_fbo.readToPixels(m_pixels);
@@ -223,8 +229,10 @@ void ledMapperApp::draw()
         m_drawMenuGuiFunc();
     }
 
-    ofSetColor(255, 255, 255, 255);
-    bHelp ? ofDrawBitmapString(textHelp, 10, 730) : ofDrawBitmapString("'h' - help", 10, 790);
+#ifndef NDEBUG
+    ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
+#endif
+
 }
 
 void ledMapperApp::updateVideoServers()
@@ -287,7 +295,7 @@ void ledMapperApp::save(const string &folderPath)
     ofSavePrettyJson(folderPath + s_configName, conf);
 
     m_ledMapper->save(folderPath);
-    m_player.save(folderPath);
+    m_player->save(folderPath);
 }
 
 bool ledMapperApp::load(const string &folderPath)
@@ -320,7 +328,7 @@ bool ledMapperApp::load(const string &folderPath)
         = conf.count("bTestImageAnimate") ? conf.at("bTestImageAnimate").get<bool>() : false;
 
     m_ledMapper->load(folderPath);
-    m_player.load(folderPath);
+    m_player->load(folderPath);
 
     setupGui();
     selectMenuItem(m_menuSelected);
@@ -415,7 +423,7 @@ void ledMapperApp::dragEvent(ofDragInfo info)
 
         ofLogVerbose() << "DRAG FILE=" << filePath;
         /// Try import file to Player
-        m_player.addContent(filePath);
+        m_player->addContent(filePath);
     }
 }
 

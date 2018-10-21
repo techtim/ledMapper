@@ -40,7 +40,7 @@ public:
     string m_configPath, m_configName;
 
     unique_ptr<LedMapper::ofxLedMapper> m_ledMapper;
-    Player m_player;
+    unique_ptr<Player> m_player;
     ofFbo m_fbo;
     
     ofPixels m_pixels;
