@@ -9,29 +9,19 @@ Open-source application for receiving input from Syphon/Spout or built-in video 
 <p align="center">
 <img alt="ledMapper screenshot" src="https://github.com/techtim/ledMapper/blob/master/images/ledMapper_screenshot.png" width="800"></p>
 
-Compiled Apps for Windows and OSX and image for RaspberryPi 3 can be found here: https://yadi.sk/d/wtCvC4sx3Ndqwv
-*NOTE: RPI Image is for Version 0.1 isn't ready, current image compatible with Alpha executables. For 0.1 lmListener needs to be installed.*
+Check [Interface Description](https://github.com/techtim/ledMapper/wiki/ledMapper-Interface) page for details.
 
-consists:
-
-- app for mapping/grabbing LEDS from Syphon (OSX) or Spout(WIN) or built-in video player (ver 0.1)
-- executables on RPI side, listens for udp packets and send via GPIO data to LEDs
+Try out compiled apps for Windows and OSX and image for RaspberryPi 3 on [TVL website](https://tvl.io/soft/ledMapper/)
 
 ### Raspberry Pi 
 
 C++ based UDP listener, listen localhost:3001 and sending data to GPIO pins. (https://github.com/techtim/lmListener)
 
 Pin numbers depends on LED IC type:
-LPD8806/SK9822/APA102 - SCK > GPIO11 (SPI_CLK), DATA > GPIO10 (SPI_MOSI) (code based on https://github.com/eranrund/blinky-pants/tree/master/lpd)
-WS281X driver from https://github.com/jgarff/rpi_ws281x using 2 channel PWM on GPIO12 and GPIO13
+- LPD8806/SK9822 - SCK > GPIO11 (SPI_CLK), DATA > GPIO10 (SPI_MOSI)
+- WS281X driver from https://github.com/jgarff/rpi_ws281x using 2 channel PWM on GPIO12 and GPIO13
 
 <img alt="RPI LED connection scheme" src="https://github.com/techtim/ledMapper/blob/master/images/RPI_3_ledMapper_pinout.png" width="420">
 
-RPI2/3 SK9822 (BLUE PINS)
-RPI2/3 WS2812 - tested (GREEN PINS)
-
-For more precious editing use XML files
-- WIN C:\Users\Public\Documents\LedMapper
-- MAC /Users/Shared/LedMapper
-
-When app has started run Resolume, add Syphon/Spout Server and have fun.
+__RPI2/3:__ SK9822/APA102/LPD8806 (BLUE PINS)
+__RPI2/3:__ WS2812 (GREEN PINS)
