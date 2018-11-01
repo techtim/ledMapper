@@ -31,7 +31,8 @@ set( OFX_ADDONS_ACTIVE
         ofxNetwork
         ofxDatGui
         ofxLedMapper
-        ofxSyphon )
+        ofxSyphon
+        ofxMidi )
 
 # =========================================================================
 # ============================== OpenFrameworks ===========================
@@ -42,3 +43,12 @@ include( ${OF_DIRECTORY_BY_USER}/addons/ofxCMake/modules/main.cmake )
 if( APPLE ) # Set App icon
     set_source_files_properties(ledMapper.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 endif()
+
+ADD_CUSTOM_COMMAND(
+        TARGET ${APP_NAME}
+        POST_BUILD
+        COMMAND rsync
+        ARGS -av --exclude='.DS_Store'
+        "${PROJECT_SOURCE_DIR}/bin/data/"
+        "${PROJECT_SOURCE_DIR}/bin/${APP_NAME}.app/Contents/Resources"
+        COMMENT "Copying Bundle Stuff")

@@ -72,7 +72,7 @@ void Player::setupGui()
 
     m_gui->setTheme(m_guiTheme.get(), true);
     m_gui->setWidth(LM_GUI_WIDTH);
-
+    m_gui->setAutoDraw(false);
 #endif
 }
 
@@ -158,9 +158,10 @@ void Player::addContent(const string &path)
     newVideo.setLoopState(OF_LOOP_NONE);
     if (!newVideo.load(path))
         return;
-
+    
+    string id = checkUniqueName(pth.filename().string(), m_contentPlayers);
     Content cont;
-    cont.id = checkUniqueName(pth.filename().string(), m_contentPlayers);
+    cont.id = id;
     cont.path = path;
     cont.durationMs = newVideo.getDuration() * 1000;
     cont.type = "video";
@@ -171,7 +172,7 @@ void Player::addContent(const string &path)
     m_contentCue.push_back(cont.id);
     m_contentPlayers[cont.id] = move(cont);
 
-    setCurrentContent(cont.id);
+    setCurrentContent(id);
 }
 
 void Player::deleteContent(const string &id)

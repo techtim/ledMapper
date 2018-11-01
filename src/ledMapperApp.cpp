@@ -18,14 +18,15 @@ void ledMapperApp::setup()
     ofSetLogLevel(OF_LOG_VERBOSE);
 #else
     ofSetLogLevel(OF_LOG_WARNING);
-#endif
-    
+
 #ifdef WIN32
     // no-op
 #elif defined(__APPLE__)
     ofSetDataPathRoot("../Resources/");
 #elif defined(TARGET_LINUX)
     // no-op
+#endif
+
 #endif
 
     ofSetFrameRate(60);
@@ -141,19 +142,24 @@ void ledMapperApp::updateGuiPosition()
 /// on menu item selection focus on needed gui and set needed lambda to draw items gui
 void ledMapperApp::selectMenuItem(const string &item)
 {
+    /// because this guis are in one place first make invisible so they don't react when inavtive
+    m_guiInput->setVisible(false);
+    m_player->getGui()->setVisible(false);
+    m_ledMapper->setGuiActive(false);
+
     if (m_menuSelected == "Control") {
-        m_ledMapper->setGuiActive();
+        m_ledMapper->setGuiActive(true);
         m_drawMenuGuiFunc = [this]() { m_ledMapper->drawGui(); };
     }
     else if (m_menuSelected == "Input") {
-        m_guiInput->focus();
+        m_guiInput->setVisible(true);
         m_drawMenuGuiFunc = [this]() {
             m_guiInput->update();
             m_guiInput->draw();
         };
     }
     else if (m_menuSelected == "Player") {
-        m_player->getGui()->focus();
+        m_player->getGui()->setVisible(true);
         m_drawMenuGuiFunc = [this]() { m_player->drawGui(); };
     }
 }
@@ -201,7 +207,9 @@ void ledMapperApp::update()
     m_player->draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 
     m_fbo.end();
-    m_fbo.readToPixels(m_pixels);
+//    m_fbo.readToPixels(m_pixels);
+
+    m_ledMapper->update();
 }
 
 //--------------------------------------------------------------
@@ -213,7 +221,7 @@ void ledMapperApp::draw()
     m_fbo.draw(0, 0);
 
     /// update LM with grabbed pixels to send them
-    m_ledMapper->update(m_pixels);
+    m_ledMapper->send(m_fbo.getTexture());
     /// draw LM grab objects
     m_ledMapper->draw();
 
