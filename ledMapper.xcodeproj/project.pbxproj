@@ -176,6 +176,7 @@
 		09D35E9640961BEC4FAAFB0D /* output */ = {
 			isa = PBXGroup;
 			children = (
+				A507F73A41048908D4FEF0A2 /* Common.h */,
 				9777D7DB866861604412EC2B /* ofxLedDmx.cpp */,
 				3CD3B211D65ECBA1185B3265 /* ofxLedRpi.cpp */,
 				B71E597923645D590CF2B6CA /* ofxLedOutput.h */,
@@ -468,16 +469,15 @@
 		F96A61D407ABA9E4437A6771 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				9DB1266C68243123FFBAB6C1 /* json.hpp */,
-				4DEC3C2F68AAF4858A6FE2B9 /* ofxLedMapper.h */,
-				4B30F06EFD0AC0041DC16B85 /* ofxLedController.cpp */,
 				09D35E9640961BEC4FAAFB0D /* output */,
+				9DB1266C68243123FFBAB6C1 /* json.hpp */,
+				C1278B7557E7CD889064CEB8 /* ofJson.h */,
+				DA137B8F97182895CF34D714 /* ofxLedController.h */,
+				4B30F06EFD0AC0041DC16B85 /* ofxLedController.cpp */,
 				DF371044B637F86956E83B66 /* ofxLedPixelGrab.h */,
 				D38F3868AA05BA46C75D3C42 /* ofxLedGrabObject.h */,
-				A507F73A41048908D4FEF0A2 /* Common.h */,
-				C1278B7557E7CD889064CEB8 /* ofJson.h */,
 				4A323001EC8050B5E3B8971F /* ofxLedGrabLine.h */,
-				DA137B8F97182895CF34D714 /* ofxLedController.h */,
+				4DEC3C2F68AAF4858A6FE2B9 /* ofxLedMapper.h */,
 				57A5AA75AAA997CD805B12E0 /* ofxLedMapper.cpp */,
 			);
 			name = src;

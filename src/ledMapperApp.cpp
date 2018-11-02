@@ -167,6 +167,9 @@ void ledMapperApp::selectMenuItem(const string &item)
 //--------------------------------------------------------------
 void ledMapperApp::update()
 {
+    updateGuiPosition();
+    m_guiMenu->update();
+    
     updateVideoServers();
 #ifdef TARGET_WIN32
     // receive Spout texture
@@ -229,9 +232,8 @@ void ledMapperApp::draw()
     if (bMenuExpanded != m_guiMenu->getIsExpanded()) {
         bMenuExpanded = m_guiMenu->getIsExpanded();
         ofLogVerbose() << "Toggle menu to " << bMenuExpanded;
-        updateGuiPosition();
     }
-    m_guiMenu->update();
+
     m_guiMenu->draw();
 
     if (m_guiMenu->getIsExpanded() && bSetupGui) {
