@@ -154,7 +154,7 @@ void Player::addContent(const string &path)
         return;
 
     ofVideoPlayer newVideo;
-    newVideo.setPixelFormat(OF_PIXELS_RGBA);
+    newVideo.setPixelFormat(OF_PIXELS_BGRA); // OF_PIXELS_RGBA
     newVideo.setLoopState(OF_LOOP_NONE);
     if (!newVideo.load(path))
         return;
