@@ -210,7 +210,6 @@ void ledMapperApp::update()
     m_player->draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 
     m_fbo.end();
-//    m_fbo.readToPixels(m_pixels);
 
     m_ledMapper->update();
 }

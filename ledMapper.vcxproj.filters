@@ -88,6 +88,9 @@
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedRpi.cpp">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -155,6 +158,9 @@
     </Filter>
     <Filter Include="addons\ofxXmlSettings\libs">
       <UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLedMapper\src\output">
+      <UniqueIdentifier>{53e9c937-5ffc-41f2-98b0-5579218fc3e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +322,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
       <Filter>addons\ofxXmlSettings\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedOutput.h">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedRpi.h">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

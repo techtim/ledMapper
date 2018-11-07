@@ -2,4 +2,5 @@ ofxDatGui
 ofxLedMapper
 ofxNetwork
 ofxSyphon
+ofxSpout2
 ofxXmlSettings

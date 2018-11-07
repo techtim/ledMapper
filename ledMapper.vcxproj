@@ -180,6 +180,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedRpi.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ledMapperApp.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -210,6 +211,8 @@
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedOutput.h" />
+    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedRpi.h" />
     <ClInclude Include="src\ledMapperApp.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGui2dPad.h" />
