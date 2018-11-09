@@ -187,7 +187,8 @@ void ledMapperApp::update()
 
     /// Platform specific video stream input draw
 #ifdef TARGET_WIN32
-    m_spoutIn.getTexture().draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    if (m_spoutIn.getTexture().isAllocated())
+		m_spoutIn.getTexture().draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 #elif defined(TARGET_OSX)
     if (Syphon1.getApplicationName() != "") {
         Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
@@ -239,10 +240,7 @@ void ledMapperApp::draw()
         m_drawMenuGuiFunc();
     }
 
-#ifndef NDEBUG
-    ofSetWindowTitle("ledMapper (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
-#endif
-
+    ofSetWindowTitle("ledMapper TVL (fps: " + ofToString(static_cast<int>(ofGetFrameRate())) + ")");
 }
 
 void ledMapperApp::updateVideoServers()
