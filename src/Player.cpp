@@ -154,11 +154,13 @@ void Player::addContent(const string &path)
         return;
 
     ofVideoPlayer newVideo;
-    newVideo.setPixelFormat(OF_PIXELS_BGRA); // OF_PIXELS_RGBA
+    newVideo.setPixelFormat(OF_PIXELS_BGRA); // BGRA fix incorrect video texture on win
     newVideo.setLoopState(OF_LOOP_NONE);
+    
     if (!newVideo.load(path))
         return;
     
+    newVideo.setVolume(0.0f);
     string id = checkUniqueName(pth.filename().string(), m_contentPlayers);
     Content cont;
     cont.id = id;
