@@ -17,7 +17,7 @@ void ledMapperApp::setup()
 #ifndef NDEBUG
     ofSetLogLevel(OF_LOG_VERBOSE);
 #else
-    ofSetLogLevel(OF_LOG_WARNING);
+    ofSetLogLevel(OF_LOG_ERROR);
 
 #ifdef WIN32
     // no-op
@@ -55,7 +55,7 @@ void ledMapperApp::setup()
     /// Init ofxLedMapper and Player instances before load
     m_ledMapper = make_unique<ofxLedMapper>();
     m_player = make_unique<Player>();
-    
+
     load(m_configPath);
 
 #ifdef TARGET_WIN32
@@ -72,9 +72,9 @@ void ledMapperApp::setup()
     m_fbo.begin();
     ofClear(0, 0, 0);
     m_fbo.end();
-    
+
     ofSetWindowTitle("ledMapper TVL");
-    
+
     textHelp = " Hold '1' / '2' / '3' + Left Click - add 'line' / 'circle' / 'region' grab object "
                "in active controller \n Hold BKSPS + Left Click - on line edges to delete line \n "
                "UP/DOWN keys - switch between controllers \n 's' - save , 'l' - load \n When turn "
@@ -169,7 +169,7 @@ void ledMapperApp::update()
 {
     updateGuiPosition();
     m_guiMenu->update();
-    
+
     updateVideoServers();
 #ifdef TARGET_WIN32
     // receive Spout texture

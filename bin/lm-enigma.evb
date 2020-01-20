@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="windows-1252"?>
 <>
-  <InputFile>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\ledMapper.exe</InputFile>
-  <OutputFile>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\ledMapper_boxed.exe</OutputFile>
+  <InputFile>ledMapper.exe</InputFile>
+  <OutputFile>C:\Users\tim\source\repos\of10\apps\myApps\ledMapper\bin\ledMapper_boxed.exe</OutputFile>
   <Files>
     <Enabled>True</Enabled>
     <DeleteExtractedOnExit>False</DeleteExtractedOnExit>
@@ -24,18 +24,6 @@
             <HideFromDialogs>0</HideFromDialogs>
             <Files>
               <File>
-                <Type>2</Type>
-                <Name>.gitkeep</Name>
-                <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\.gitkeep</File>
-                <ActiveX>False</ActiveX>
-                <ActiveXInstall>False</ActiveXInstall>
-                <Action>0</Action>
-                <OverwriteDateTime>False</OverwriteDateTime>
-                <OverwriteAttributes>False</OverwriteAttributes>
-                <PassCommandLine>False</PassCommandLine>
-                <HideFromDialogs>0</HideFromDialogs>
-              </File>
-              <File>
                 <Type>3</Type>
                 <Name>gui</Name>
                 <Action>0</Action>
@@ -46,7 +34,7 @@
                   <File>
                     <Type>2</Type>
                     <Name>mouse_grab_circle.jpg</Name>
-                    <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\gui\mouse_grab_circle.jpg</File>
+                    <File>data\gui\mouse_grab_circle.jpg</File>
                     <ActiveX>False</ActiveX>
                     <ActiveXInstall>False</ActiveXInstall>
                     <Action>0</Action>
@@ -58,7 +46,7 @@
                   <File>
                     <Type>2</Type>
                     <Name>mouse_grab_line.jpg</Name>
-                    <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\gui\mouse_grab_line.jpg</File>
+                    <File>data\gui\mouse_grab_line.jpg</File>
                     <ActiveX>False</ActiveX>
                     <ActiveXInstall>False</ActiveXInstall>
                     <Action>0</Action>
@@ -70,7 +58,7 @@
                   <File>
                     <Type>2</Type>
                     <Name>mouse_grab_matrix.jpg</Name>
-                    <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\gui\mouse_grab_matrix.jpg</File>
+                    <File>data\gui\mouse_grab_matrix.jpg</File>
                     <ActiveX>False</ActiveX>
                     <ActiveXInstall>False</ActiveXInstall>
                     <Action>0</Action>
@@ -82,7 +70,7 @@
                   <File>
                     <Type>2</Type>
                     <Name>mouse_select.jpg</Name>
-                    <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\gui\mouse_select.jpg</File>
+                    <File>data\gui\mouse_select.jpg</File>
                     <ActiveX>False</ActiveX>
                     <ActiveXInstall>False</ActiveXInstall>
                     <Action>0</Action>
@@ -96,7 +84,7 @@
               <File>
                 <Type>2</Type>
                 <Name>icon.icns</Name>
-                <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\icon.icns</File>
+                <File>data\icon.icns</File>
                 <ActiveX>False</ActiveX>
                 <ActiveXInstall>False</ActiveXInstall>
                 <Action>0</Action>
@@ -124,7 +112,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>MavenPro-Medium.ttf</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\fonts\MavenPro-Medium.ttf</File>
+                        <File>data\ofxbraitsch\fonts\MavenPro-Medium.ttf</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -136,7 +124,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>MavenPro-Regular.ttf</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\fonts\MavenPro-Regular.ttf</File>
+                        <File>data\ofxbraitsch\fonts\MavenPro-Regular.ttf</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -148,7 +136,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>Verdana.ttf</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\fonts\Verdana.ttf</File>
+                        <File>data\ofxbraitsch\fonts\Verdana.ttf</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -170,7 +158,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>icon-group-closed.png</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\ofxdatgui\icon-group-closed.png</File>
+                        <File>data\ofxbraitsch\ofxdatgui\icon-group-closed.png</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -182,7 +170,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>icon-group-open.png</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\ofxdatgui\icon-group-open.png</File>
+                        <File>data\ofxbraitsch\ofxdatgui\icon-group-open.png</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -194,7 +182,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>icon-radio-off.png</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\ofxdatgui\icon-radio-off.png</File>
+                        <File>data\ofxbraitsch\ofxdatgui\icon-radio-off.png</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -206,7 +194,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>icon-radio-on.png</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\ofxdatgui\icon-radio-on.png</File>
+                        <File>data\ofxbraitsch\ofxdatgui\icon-radio-on.png</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -218,7 +206,7 @@
                       <File>
                         <Type>2</Type>
                         <Name>picker-rainbow.png</Name>
-                        <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\data\ofxbraitsch\ofxdatgui\picker-rainbow.png</File>
+                        <File>data\ofxbraitsch\ofxdatgui\picker-rainbow.png</File>
                         <ActiveX>False</ActiveX>
                         <ActiveXInstall>False</ActiveXInstall>
                         <Action>0</Action>
@@ -236,7 +224,7 @@
           <File>
             <Type>2</Type>
             <Name>fmodex64.dll</Name>
-            <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\fmodex64.dll</File>
+            <File>fmodex64.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
@@ -248,7 +236,7 @@
           <File>
             <Type>2</Type>
             <Name>fmodexL64.dll</Name>
-            <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\fmodexL64.dll</File>
+            <File>fmodexL64.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
@@ -260,19 +248,7 @@
           <File>
             <Type>2</Type>
             <Name>FreeImage.dll</Name>
-            <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\FreeImage.dll</File>
-            <ActiveX>False</ActiveX>
-            <ActiveXInstall>False</ActiveXInstall>
-            <Action>0</Action>
-            <OverwriteDateTime>False</OverwriteDateTime>
-            <OverwriteAttributes>False</OverwriteAttributes>
-            <PassCommandLine>False</PassCommandLine>
-            <HideFromDialogs>0</HideFromDialogs>
-          </File>
-          <File>
-            <Type>2</Type>
-            <Name>Zlib.dll</Name>
-            <File>C:\Users\tim\Documents\Programming\of_v0.10.0_vs2017_release\apps\led\ledMapper_git\bin\Zlib.dll</File>
+            <File>FreeImage.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
