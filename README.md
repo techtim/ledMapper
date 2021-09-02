@@ -25,3 +25,13 @@ Pin numbers depends on LED IC type:
 
 __RPI2/3:__ SK9822/APA102/LPD8806 (BLUE PINS)
 __RPI2/3:__ WS2812 (GREEN PINS)
+
+## Build
+### Linux
+```
+git submodule update --init --recursive
+rm -rf addons/ofxDatGui/src/libs/ofxSmartFont/example-ofxSmartFont
+sudo ./scripts/linux/ubuntu/install_dependencies.sh
+cd ../../../apps/projectGenerator/commandLine && make -j4
+```
+run ProjectGenerator for ledMapper

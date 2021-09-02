@@ -37,12 +37,12 @@ static void from_json(const ofJson &j, Content &c)
 }
 
 class Player {
+    bool m_playing;
+    string m_curContent, m_prevContent;
     std::map<string, Content> m_contentPlayers;
     std::vector<string> m_contentCue;
-    string m_curContent, m_prevContent;
     uint64_t m_fadeMs, m_fadeStart;
     long m_curVideoStart; /// hack aroung VideoPlayer.getPosition that don't work
-    bool m_playing;
     string m_configPath;
     ofColor m_colorize;
 #ifndef LED_MAPPER_NO_GUI

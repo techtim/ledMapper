@@ -4,3 +4,15 @@
 [submodule "rpi_sk9822"]
 	path = rpi_sk9822
 	url = https://github.com/techtim/rpi_sk9822.git
+[submodule "addons/ofxSyphon"]
+	path = addons/ofxSyphon
+	url = https://github.com/astellato/ofxSyphon.git
+[submodule "addons/ofxLedMapper"]
+	path = addons/ofxLedMapper
+	url = git@github.com:techtim/ofxLedMapper.git
+[submodule "addons/ofxDatGui"]
+	path = addons/ofxDatGui
+	url = git@github.com:techtim/ofxDatGui.git
+[submodule "addons/ofxSpout"]
+	path = addons/ofxSpout
+	url = https://github.com/elliotwoods/ofxSpout.git
