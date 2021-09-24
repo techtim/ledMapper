@@ -37,7 +37,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -49,7 +49,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
@@ -128,6 +128,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -170,6 +171,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;addons\ofxDatGui\src;addons\ofxDatGui\src\components;addons\ofxDatGui\src\core;addons\ofxDatGui\src\libs;addons\ofxDatGui\src\libs\ofxSmartFont;addons\ofxDatGui\src\libs\ofxSmartFont\src;addons\ofxDatGui\src\themes;addons\ofxLedMapper\src;addons\ofxLedMapper\src\grab;addons\ofxLedMapper\src\output;..\..\..\addons\ofxNetwork\src;addons\ofxSpout\libs;addons\ofxSpout\libs\SpoutSDK;addons\ofxSpout\libs\SpoutSDK\src;addons\ofxSpout\src;addons\ofxSpout\src\ofxSpout;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -258,8 +260,6 @@
     <ClInclude Include="addons\ofxLedMapper\src\Common.h" />
     <ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabs.h" />
     <ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabXmlLoad.h" />
-    <ClInclude Include="addons\ofxLedMapper\src\json.hpp" />
-    <ClInclude Include="addons\ofxLedMapper\src\ofJson.h" />
     <ClInclude Include="addons\ofxLedMapper\src\ofxLedController.h" />
     <ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabLine.h" />
     <ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabObject.h" />

@@ -1,414 +1,349 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<ClCompile Include="src\ofApp.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
-		<ClCompile Include="src\main.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
-		<ClCompile Include="src\ledMapperApp.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
-		<ClCompile Include="src\main.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
-		<ClCompile Include="src\Player.cpp">
-			<Filter>src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp">
-			<Filter>addons\ofxDatGui\src\core</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxDatGui\src\libs\ofxSmartFont\.gitignore">
-			<Filter>addons\ofxDatGui\src\libs\ofxSmartFont</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxDatGui\src\libs\ofxSmartFont\readme-img\ofxSmartFont.png">
-			<Filter>addons\ofxDatGui\src\libs\ofxSmartFont\readme-img</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxDatGui\src\libs\ofxSmartFont\readme.md">
-			<Filter>addons\ofxDatGui\src\libs\ofxSmartFont</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.cpp">
-			<Filter>addons\ofxDatGui\src\libs\ofxSmartFont\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxDatGui\src\ofxDatGui.cpp">
-			<Filter>addons\ofxDatGui\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxLedMapper\src\ofxLedController.cpp">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxLedMapper\src\ofxLedMapper.cpp">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxLedMapper\src\output\ofxLedArtnet.cpp">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxLedMapper\src\output\ofxLedDmx.cpp">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxLedMapper\src\output\ofxLedRpi.cpp">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.cpp">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.cpp">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.cpp">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.cpp">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.cpp">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\src\ofxSpout\Receiver.cpp">
-			<Filter>addons\ofxSpout\src\ofxSpout</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\src\ofxSpout\Sender.cpp">
-			<Filter>addons\ofxSpout\src\ofxSpout</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\src\ofxSpout\Utils.cpp">
-			<Filter>addons\ofxSpout\src\ofxSpout</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCopy.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutDirectX.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutFrameCount.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLDXinterop.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLextensions.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutMemoryShare.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutReceiver.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSDK.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSender.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSenderNames.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSharedMemory.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutUtils.cpp">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
-			<Filter>addons\ofxXmlSettings\src</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp">
-			<Filter>addons\ofxXmlSettings\libs</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
-			<Filter>addons\ofxXmlSettings\libs</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
-			<Filter>addons\ofxXmlSettings\libs</Filter>
-		</ClCompile>
-	</ItemGroup>
-	<ItemGroup>
-		<Filter Include="src">
-			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons">
-			<UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui">
-			<UniqueIdentifier>{B36B06DF-1AA4-00D4-5A1B-6893}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src">
-			<UniqueIdentifier>{CAA2E9BA-611F-99B2-780A-B8BA}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src\components">
-			<UniqueIdentifier>{8EFE15E2-401E-A657-3818-AD66}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src\core">
-			<UniqueIdentifier>{6835CAB6-404A-D3AD-148B-CD60}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src\libs">
-			<UniqueIdentifier>{ABAEF2A2-DCDC-DB83-4614-EB2B}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src\libs\ofxSmartFont">
-			<UniqueIdentifier>{A694AB8C-4705-277A-3AC8-2B8E}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src\libs\ofxSmartFont\readme-img">
-			<UniqueIdentifier>{03609F21-9E56-4E6D-7EBB-BEA4}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src\libs\ofxSmartFont\src">
-			<UniqueIdentifier>{11149A5A-9ACC-C40C-6630-21F5}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxDatGui\src\themes">
-			<UniqueIdentifier>{2646318C-49AB-44C5-70D8-23E6}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxLedMapper">
-			<UniqueIdentifier>{A96BFA17-5DD8-8C27-30D2-8E1A}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxLedMapper\src">
-			<UniqueIdentifier>{84117DA6-D35A-5A56-BA02-FB0C}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxLedMapper\src\grab">
-			<UniqueIdentifier>{F530CF09-C152-72D9-77E6-855B}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxLedMapper\src\output">
-			<UniqueIdentifier>{88557BA7-CBC1-FB6A-F62B-9FBD}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="..\..\..\addons\ofxNetwork">
-			<UniqueIdentifier>{01A15744-29A6-108D-08E9-83A7}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="..\..\..\addons\ofxNetwork\src">
-			<UniqueIdentifier>{3D1C10C7-8F35-E796-9C70-F5F3}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxSpout">
-			<UniqueIdentifier>{F4DD1F4F-E479-F60E-B010-30BD}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxSpout\src">
-			<UniqueIdentifier>{836FBDC0-375C-97EA-F6ED-9730}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxSpout\src\ofxSpout">
-			<UniqueIdentifier>{E7ABD4B0-4F90-69C0-118F-5894}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxSpout\libs">
-			<UniqueIdentifier>{7070A9E6-A71C-4358-F0E4-3D28}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxSpout\libs\SpoutSDK">
-			<UniqueIdentifier>{DBA8F4A5-5C4B-6BC3-C55A-E264}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="addons\ofxSpout\libs\SpoutSDK\src">
-			<UniqueIdentifier>{CC43A1EC-9F74-499A-D230-67A8}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="..\..\..\addons\ofxXmlSettings">
-			<UniqueIdentifier>{877F005D-13E6-0592-1D97-F2E3}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="..\..\..\addons\ofxXmlSettings\src">
-			<UniqueIdentifier>{CCB2AC63-49D2-977C-CFE8-AEAD}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="..\..\..\addons\ofxXmlSettings\libs">
-			<UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
-		</Filter>
-	</ItemGroup>
-	<ItemGroup>
-		<ClInclude Include="src\ofApp.h">
-			<Filter>src</Filter>
-		</ClInclude>
-		<ClInclude Include="src\ledMapperApp.h">
-			<Filter>src</Filter>
-		</ClInclude>
-		<ClInclude Include="src\Player.h">
-			<Filter>src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGui2dPad.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiButton.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiButtonImage.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiControls.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiFRM.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiGroups.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiLabel.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiMatrix.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiScrollView.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiSlider.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTextInput.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h">
-			<Filter>addons\ofxDatGui\src\components</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiComponent.h">
-			<Filter>addons\ofxDatGui\src\core</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiConstants.h">
-			<Filter>addons\ofxDatGui\src\core</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiEvents.h">
-			<Filter>addons\ofxDatGui\src\core</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiIntObject.h">
-			<Filter>addons\ofxDatGui\src\core</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.h">
-			<Filter>addons\ofxDatGui\src\libs\ofxSmartFont\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\ofxDatGui.h">
-			<Filter>addons\ofxDatGui\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\themes\ofxDatGuiTheme.h">
-			<Filter>addons\ofxDatGui\src\themes</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxDatGui\src\themes\ofxDatGuiThemes.h">
-			<Filter>addons\ofxDatGui\src\themes</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\Common.h">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabs.h">
-			<Filter>addons\ofxLedMapper\src\grab</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabXmlLoad.h">
-			<Filter>addons\ofxLedMapper\src\grab</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\json.hpp">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\ofJson.h">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\ofxLedController.h">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabLine.h">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabObject.h">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\ofxLedMapper.h">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\ofxLedPixelGrab.h">
-			<Filter>addons\ofxLedMapper\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\output\ofxLedArtnet.h">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\output\ofxLedDmx.h">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\output\ofxLedOutput.h">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\output\ofxLedOutputBase.h">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxLedMapper\src\output\ofxLedRpi.h">
-			<Filter>addons\ofxLedMapper\src\output</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetwork.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPSettings.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPSettings.h">
-			<Filter>addons\ofxNetwork\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\src\ofxSpout\Receiver.h">
-			<Filter>addons\ofxSpout\src\ofxSpout</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\src\ofxSpout\Sender.h">
-			<Filter>addons\ofxSpout\src\ofxSpout</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\src\ofxSpout\Utils.h">
-			<Filter>addons\ofxSpout\src\ofxSpout</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\src\ofxSpout.h">
-			<Filter>addons\ofxSpout\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\Spout.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCommon.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCopy.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutDirectX.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutFrameCount.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLDXinterop.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLextensions.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutMemoryShare.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutReceiver.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSDK.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSender.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSenderNames.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSharedMemory.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutUtils.h">
-			<Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
-			<Filter>addons\ofxXmlSettings\src</Filter>
-		</ClInclude>
-		<ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
-			<Filter>addons\ofxXmlSettings\libs</Filter>
-		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="icon.rc" />
-	</ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ledMapperApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp">
+      <Filter>addons\ofxDatGui\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.cpp">
+      <Filter>addons\ofxDatGui\src\libs\ofxSmartFont\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxDatGui\src\ofxDatGui.cpp">
+      <Filter>addons\ofxDatGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxLedMapper\src\ofxLedController.cpp">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxLedMapper\src\ofxLedMapper.cpp">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxLedMapper\src\output\ofxLedArtnet.cpp">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxLedMapper\src\output\ofxLedDmx.cpp">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxLedMapper\src\output\ofxLedRpi.cpp">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\src\ofxSpout\Receiver.cpp">
+      <Filter>addons\ofxSpout\src\ofxSpout</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\src\ofxSpout\Sender.cpp">
+      <Filter>addons\ofxSpout\src\ofxSpout</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\src\ofxSpout\Utils.cpp">
+      <Filter>addons\ofxSpout\src\ofxSpout</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCopy.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutDirectX.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutFrameCount.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLDXinterop.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLextensions.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutMemoryShare.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutReceiver.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSDK.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSender.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSenderNames.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSharedMemory.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutUtils.cpp">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons">
+      <UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui">
+      <UniqueIdentifier>{B36B06DF-1AA4-00D4-5A1B-6893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src">
+      <UniqueIdentifier>{CAA2E9BA-611F-99B2-780A-B8BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src\components">
+      <UniqueIdentifier>{8EFE15E2-401E-A657-3818-AD66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src\core">
+      <UniqueIdentifier>{6835CAB6-404A-D3AD-148B-CD60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src\libs">
+      <UniqueIdentifier>{ABAEF2A2-DCDC-DB83-4614-EB2B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src\libs\ofxSmartFont">
+      <UniqueIdentifier>{A694AB8C-4705-277A-3AC8-2B8E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src\libs\ofxSmartFont\readme-img">
+      <UniqueIdentifier>{03609F21-9E56-4E6D-7EBB-BEA4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src\libs\ofxSmartFont\src">
+      <UniqueIdentifier>{11149A5A-9ACC-C40C-6630-21F5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxDatGui\src\themes">
+      <UniqueIdentifier>{2646318C-49AB-44C5-70D8-23E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLedMapper">
+      <UniqueIdentifier>{A96BFA17-5DD8-8C27-30D2-8E1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLedMapper\src">
+      <UniqueIdentifier>{84117DA6-D35A-5A56-BA02-FB0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLedMapper\src\grab">
+      <UniqueIdentifier>{F530CF09-C152-72D9-77E6-855B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLedMapper\src\output">
+      <UniqueIdentifier>{88557BA7-CBC1-FB6A-F62B-9FBD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\addons\ofxNetwork\src">
+      <UniqueIdentifier>{3D1C10C7-8F35-E796-9C70-F5F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSpout">
+      <UniqueIdentifier>{F4DD1F4F-E479-F60E-B010-30BD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSpout\src">
+      <UniqueIdentifier>{836FBDC0-375C-97EA-F6ED-9730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSpout\src\ofxSpout">
+      <UniqueIdentifier>{E7ABD4B0-4F90-69C0-118F-5894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSpout\libs">
+      <UniqueIdentifier>{7070A9E6-A71C-4358-F0E4-3D28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSpout\libs\SpoutSDK">
+      <UniqueIdentifier>{DBA8F4A5-5C4B-6BC3-C55A-E264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSpout\libs\SpoutSDK\src">
+      <UniqueIdentifier>{CC43A1EC-9F74-499A-D230-67A8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\addons\ofxXmlSettings\src">
+      <UniqueIdentifier>{CCB2AC63-49D2-977C-CFE8-AEAD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\..\addons\ofxXmlSettings\libs">
+      <UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ledMapperApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGui2dPad.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiButton.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiButtonImage.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiControls.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiFRM.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiGroups.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiLabel.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiMatrix.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiScrollView.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiSlider.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTextInput.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h">
+      <Filter>addons\ofxDatGui\src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiComponent.h">
+      <Filter>addons\ofxDatGui\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiConstants.h">
+      <Filter>addons\ofxDatGui\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiEvents.h">
+      <Filter>addons\ofxDatGui\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiIntObject.h">
+      <Filter>addons\ofxDatGui\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.h">
+      <Filter>addons\ofxDatGui\src\libs\ofxSmartFont\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\ofxDatGui.h">
+      <Filter>addons\ofxDatGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\themes\ofxDatGuiTheme.h">
+      <Filter>addons\ofxDatGui\src\themes</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxDatGui\src\themes\ofxDatGuiThemes.h">
+      <Filter>addons\ofxDatGui\src\themes</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\Common.h">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabs.h">
+      <Filter>addons\ofxLedMapper\src\grab</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabXmlLoad.h">
+      <Filter>addons\ofxLedMapper\src\grab</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedController.h">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabLine.h">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabObject.h">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedMapper.h">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedPixelGrab.h">
+      <Filter>addons\ofxLedMapper\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedArtnet.h">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedDmx.h">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedOutput.h">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedOutputBase.h">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedRpi.h">
+      <Filter>addons\ofxLedMapper\src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout\Receiver.h">
+      <Filter>addons\ofxSpout\src\ofxSpout</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout\Sender.h">
+      <Filter>addons\ofxSpout\src\ofxSpout</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout\Utils.h">
+      <Filter>addons\ofxSpout\src\ofxSpout</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout.h">
+      <Filter>addons\ofxSpout\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\Spout.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCommon.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCopy.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutDirectX.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutFrameCount.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLDXinterop.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLextensions.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutMemoryShare.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutReceiver.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSDK.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSender.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSenderNames.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSharedMemory.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutUtils.h">
+      <Filter>addons\ofxSpout\libs\SpoutSDK\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetwork.h" />
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.h" />
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.h" />
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.h" />
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPSettings.h" />
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.h" />
+    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPSettings.h" />
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
 </Project>
