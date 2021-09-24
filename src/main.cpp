@@ -10,7 +10,7 @@
 int main()
 {
     ofGLWindowSettings settings;
-    settings.setGLVersion(3, 2);    // <--- GL Programmable Renderer
+    settings.setGLVersion(4, 2);    // <--- GL Programmable Renderer
     settings.setSize(1024, 768);
     ofCreateWindow(settings);       // <-------- setup the GL context
 

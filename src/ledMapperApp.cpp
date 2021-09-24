@@ -59,7 +59,7 @@ void ledMapperApp::setup()
     load(m_configPath);
 
 #ifdef TARGET_WIN32
-    m_spoutIn.setup();
+    m_spoutIn.init();
 #elif defined(TARGET_OSX)
     SyphonDir.setup();
     Syphon1.setup();
@@ -171,9 +171,17 @@ void ledMapperApp::update()
     m_guiMenu->update();
 
     updateVideoServers();
+
+    m_ledMapper->update();
+}
+
+//--------------------------------------------------------------
+void ledMapperApp::draw()
+{
+
 #ifdef TARGET_WIN32
     // receive Spout texture
-    m_spoutIn.updateTexture();
+    bool received = m_spoutIn.receive(tex);
 #endif
 
     m_fbo.begin();
@@ -187,8 +195,8 @@ void ledMapperApp::update()
 
     /// Platform specific video stream input draw
 #ifdef TARGET_WIN32
-    if (m_spoutIn.getTexture().isAllocated())
-		m_spoutIn.getTexture().draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
+    if (received)
+        tex.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
 #elif defined(TARGET_OSX)
     if (Syphon1.getApplicationName() != "") {
         Syphon1.draw(-syphonW / 2, -syphonH / 2, syphonW, syphonH);
@@ -212,12 +220,6 @@ void ledMapperApp::update()
 
     m_fbo.end();
 
-    m_ledMapper->update();
-}
-
-//--------------------------------------------------------------
-void ledMapperApp::draw()
-{
     ofSetBackgroundColor(0);
 
 	ofSetColor(255);
@@ -334,7 +336,7 @@ bool ledMapperApp::load(const string &folderPath)
     bTestImage = conf.count("bTestImage") ? conf.at("bTestImage").get<bool>() : true;
     bTestImageAnimate
         = conf.count("bTestImageAnimate") ? conf.at("bTestImageAnimate").get<bool>() : true;
-
+    tex.allocate(syphonW, syphonH, GL_RGBA);
     m_ledMapper->load(folderPath);
     m_player->load(folderPath);
 
@@ -385,7 +387,7 @@ void ledMapperApp::keyPressed(int key)
             break;
 #ifdef TARGET_WIN32
         case 'i':
-            m_spoutIn.showSenders();
+            m_spoutIn.selectSenderPanel();
             break;
 #endif
         default:
@@ -438,6 +440,6 @@ void ledMapperApp::dragEvent(ofDragInfo info)
 void ledMapperApp::exit()
 {
 #ifdef TARGET_WIN32
-    m_spoutIn.exit();
+    m_spoutIn.release();
 #endif
 }

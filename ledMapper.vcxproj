@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Condition="'$(WindowsTargetPlatformVersion)'==''">
     <LatestTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">10.0</WindowsTargetPlatformVersion>
     <TargetPlatformVersion>$(WindowsTargetPlatformVersion)</TargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Label="Globals">
@@ -32,65 +32,69 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+    <Import Project="../../../addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+    <Import Project="../../../addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+    <Import Project="../../../addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+    <Import Project="../../../addons\ofxSpout\ofxSpoutLib\ofxSpout.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>bin\</OutDir>
-    <IntDir>obj\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_debug</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>bin\</OutDir>
-    <IntDir>obj\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_debug</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>bin\</OutDir>
-    <IntDir>obj\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>bin\</OutDir>
-    <IntDir>obj\$(Configuration)\</IntDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -100,9 +104,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data\raleway;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata\xcschemes;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\readme-img;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxLedMapper\src;..\..\..\addons\ofxNetwork\src;..\..\..\addons\ofxSpout2\libs;..\..\..\addons\ofxSpout2\libs\include;..\..\..\addons\ofxSpout2\libs\src;..\..\..\addons\ofxSpout2\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;addons\ofxDatGui\src;addons\ofxDatGui\src\components;addons\ofxDatGui\src\core;addons\ofxDatGui\src\libs;addons\ofxDatGui\src\libs\ofxSmartFont;addons\ofxDatGui\src\libs\ofxSmartFont\src;addons\ofxDatGui\src\themes;addons\ofxLedMapper\src;addons\ofxLedMapper\src\grab;addons\ofxLedMapper\src\output;..\..\..\addons\ofxNetwork\src;addons\ofxSpout\libs;addons\ofxSpout\libs\SpoutSDK;addons\ofxSpout\libs\SpoutSDK\src;addons\ofxSpout\src;addons\ofxSpout\src\ofxSpout;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
-      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -120,10 +124,10 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data\raleway;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata\xcschemes;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\readme-img;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxLedMapper\src;..\..\..\addons\ofxNetwork\src;..\..\..\addons\ofxSpout2\libs;..\..\..\addons\ofxSpout2\libs\include;..\..\..\addons\ofxSpout2\libs\src;..\..\..\addons\ofxSpout2\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;addons\ofxDatGui\src;addons\ofxDatGui\src\components;addons\ofxDatGui\src\core;addons\ofxDatGui\src\libs;addons\ofxDatGui\src\libs\ofxSmartFont;addons\ofxDatGui\src\libs\ofxSmartFont\src;addons\ofxDatGui\src\themes;addons\ofxLedMapper\src;addons\ofxLedMapper\src\grab;addons\ofxLedMapper\src\output;..\..\..\addons\ofxNetwork\src;addons\ofxSpout\libs;addons\ofxSpout\libs\SpoutSDK;addons\ofxSpout\libs\SpoutSDK\src;addons\ofxSpout\src;addons\ofxSpout\src\ofxSpout;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
-      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -140,10 +144,10 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data\raleway;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata\xcschemes;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\readme-img;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxLedMapper\src;..\..\..\addons\ofxNetwork\src;..\..\..\addons\ofxSpout2\libs;..\..\..\addons\ofxSpout2\libs\include;..\..\..\addons\ofxSpout2\libs\src;..\..\..\addons\ofxSpout2\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;addons\ofxDatGui\src;addons\ofxDatGui\src\components;addons\ofxDatGui\src\core;addons\ofxDatGui\src\libs;addons\ofxDatGui\src\libs\ofxSmartFont;addons\ofxDatGui\src\libs\ofxSmartFont\src;addons\ofxDatGui\src\themes;addons\ofxLedMapper\src;addons\ofxLedMapper\src\grab;addons\ofxLedMapper\src\output;..\..\..\addons\ofxNetwork\src;addons\ofxSpout\libs;addons\ofxSpout\libs\SpoutSDK;addons\ofxSpout\libs\SpoutSDK\src;addons\ofxSpout\src;addons\ofxSpout\src\ofxSpout;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
-      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -163,9 +167,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\addons\ofxDatGui\src;..\..\..\addons\ofxDatGui\src\components;..\..\..\addons\ofxDatGui\src\core;..\..\..\addons\ofxDatGui\src\libs;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\bin\data\raleway;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\example-ofxSmartFont.xcodeproj\xcshareddata\xcschemes;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\example-ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\readme-img;..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\src;..\..\..\addons\ofxDatGui\src\themes;..\..\..\addons\ofxLedMapper\src;..\..\..\addons\ofxNetwork\src;..\..\..\addons\ofxSpout2\libs;..\..\..\addons\ofxSpout2\libs\include;..\..\..\addons\ofxSpout2\libs\src;..\..\..\addons\ofxSpout2\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;addons\ofxDatGui\src;addons\ofxDatGui\src\components;addons\ofxDatGui\src\core;addons\ofxDatGui\src\libs;addons\ofxDatGui\src\libs\ofxSmartFont;addons\ofxDatGui\src\libs\ofxSmartFont\src;addons\ofxDatGui\src\themes;addons\ofxLedMapper\src;addons\ofxLedMapper\src\grab;addons\ofxLedMapper\src\output;..\..\..\addons\ofxNetwork\src;addons\ofxSpout\libs;addons\ofxSpout\libs\SpoutSDK;addons\ofxSpout\libs\SpoutSDK\src;addons\ofxSpout\src;addons\ofxSpout\src\ofxSpout;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
-      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -180,69 +184,45 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedRpi.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ledMapperApp.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxLedMapper\src\ofxLedController.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxLedMapper\src\ofxLedMapper.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\src\ofxSpout2Receiver.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\src\ofxSpout2Sender.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutDirectX.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutGLDXinterop.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutGLextensions.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutMemoryShare.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutReceiver.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutSDK.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutSender.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutSenderNames.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxSpout2\libs\src\SpoutSharedMemory.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+    <ClCompile Include="addons\ofxDatGui\src\core\ofxDatGuiComponent.cpp" />
+    <ClCompile Include="addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.cpp" />
+    <ClCompile Include="addons\ofxDatGui\src\ofxDatGui.cpp" />
+    <ClCompile Include="addons\ofxLedMapper\src\ofxLedController.cpp" />
+    <ClCompile Include="addons\ofxLedMapper\src\ofxLedMapper.cpp" />
+    <ClCompile Include="addons\ofxLedMapper\src\output\ofxLedArtnet.cpp" />
+    <ClCompile Include="addons\ofxLedMapper\src\output\ofxLedDmx.cpp" />
+    <ClCompile Include="addons\ofxLedMapper\src\output\ofxLedRpi.cpp" />
+    <ClCompile Include="addons\ofxSpout\src\ofxSpout\Receiver.cpp" />
+    <ClCompile Include="addons\ofxSpout\src\ofxSpout\Sender.cpp" />
+    <ClCompile Include="addons\ofxSpout\src\ofxSpout\Utils.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCopy.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutDirectX.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutFrameCount.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLDXinterop.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLextensions.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutMemoryShare.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutReceiver.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSDK.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSender.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSenderNames.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSharedMemory.cpp" />
+    <ClCompile Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedOutput.h" />
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\output\ofxLedRpi.h" />
     <ClInclude Include="src\ledMapperApp.h" />
     <ClInclude Include="src\Player.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGui2dPad.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiButton.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiButtonImage.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiControls.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiFRM.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiGroups.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiLabel.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiMatrix.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiScrollView.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiSlider.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInput.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiComponent.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiConstants.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiEvents.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\core\ofxDatGuiIntObject.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\ofxDatGui.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiTheme.h" />
-    <ClInclude Include="..\..\..\addons\ofxDatGui\src\themes\ofxDatGuiThemes.h" />
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\Common.h" />
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\json.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\ofJson.h" />
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\ofxLedController.h" />
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\ofxLedGrabObject.h" />
-    <ClInclude Include="..\..\..\addons\ofxLedMapper\src\ofxLedMapper.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetwork.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.h" />
@@ -251,21 +231,63 @@
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPSettings.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPSettings.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\src\ofxSpout2Receiver.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\src\ofxSpout2Sender.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\Spout.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutCommon.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutDirectX.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutGLDXinterop.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutGLextensions.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutMemoryShare.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutReceiver.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutSDK.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutSender.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutSenderNames.h" />
-    <ClInclude Include="..\..\..\addons\ofxSpout2\libs\include\SpoutSharedMemory.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGui2dPad.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiButton.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiButtonImage.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiColorPicker.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiControls.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiFRM.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiGroups.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiLabel.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiMatrix.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiScrollView.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiSlider.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTextInput.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTextInputField.h" />
+    <ClInclude Include="addons\ofxDatGui\src\components\ofxDatGuiTimeGraph.h" />
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiComponent.h" />
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiConstants.h" />
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiEvents.h" />
+    <ClInclude Include="addons\ofxDatGui\src\core\ofxDatGuiIntObject.h" />
+    <ClInclude Include="addons\ofxDatGui\src\libs\ofxSmartFont\src\ofxSmartFont.h" />
+    <ClInclude Include="addons\ofxDatGui\src\ofxDatGui.h" />
+    <ClInclude Include="addons\ofxDatGui\src\themes\ofxDatGuiTheme.h" />
+    <ClInclude Include="addons\ofxDatGui\src\themes\ofxDatGuiThemes.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\Common.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabs.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\grab\ofxLedGrabXmlLoad.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\json.hpp" />
+    <ClInclude Include="addons\ofxLedMapper\src\ofJson.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedController.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabLine.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedGrabObject.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedMapper.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\ofxLedPixelGrab.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedArtnet.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedDmx.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedOutput.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedOutputBase.h" />
+    <ClInclude Include="addons\ofxLedMapper\src\output\ofxLedRpi.h" />
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout\Receiver.h" />
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout\Sender.h" />
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout\Utils.h" />
+    <ClInclude Include="addons\ofxSpout\src\ofxSpout.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\Spout.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCommon.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutCopy.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutDirectX.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutFrameCount.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLDXinterop.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutGLextensions.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutMemoryShare.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutReceiver.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSDK.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSender.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSenderNames.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutSharedMemory.h" />
+    <ClInclude Include="addons\ofxSpout\libs\SpoutSDK\src\SpoutUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="windows-1252"?>
 <>
   <InputFile>ledMapper.exe</InputFile>
-  <OutputFile>C:\Users\tim\source\repos\of10\apps\myApps\ledMapper\bin\ledMapper_boxed.exe</OutputFile>
+  <OutputFile>..\ledMapper_boxed.exe</OutputFile>
   <Files>
     <Enabled>True</Enabled>
     <DeleteExtractedOnExit>False</DeleteExtractedOnExit>
@@ -223,32 +223,32 @@
           </File>
           <File>
             <Type>2</Type>
-            <Name>fmodex64.dll</Name>
-            <File>fmodex64.dll</File>
-            <ActiveX>False</ActiveX>
-            <ActiveXInstall>False</ActiveXInstall>
-            <Action>0</Action>
-            <OverwriteDateTime>False</OverwriteDateTime>
-            <OverwriteAttributes>False</OverwriteAttributes>
-            <PassCommandLine>False</PassCommandLine>
-            <HideFromDialogs>0</HideFromDialogs>
-          </File>
-          <File>
-            <Type>2</Type>
-            <Name>fmodexL64.dll</Name>
-            <File>fmodexL64.dll</File>
-            <ActiveX>False</ActiveX>
-            <ActiveXInstall>False</ActiveXInstall>
-            <Action>0</Action>
-            <OverwriteDateTime>False</OverwriteDateTime>
-            <OverwriteAttributes>False</OverwriteAttributes>
-            <PassCommandLine>False</PassCommandLine>
-            <HideFromDialogs>0</HideFromDialogs>
-          </File>
-          <File>
-            <Type>2</Type>
             <Name>FreeImage.dll</Name>
             <File>FreeImage.dll</File>
+            <ActiveX>False</ActiveX>
+            <ActiveXInstall>False</ActiveXInstall>
+            <Action>0</Action>
+            <OverwriteDateTime>False</OverwriteDateTime>
+            <OverwriteAttributes>False</OverwriteAttributes>
+            <PassCommandLine>False</PassCommandLine>
+            <HideFromDialogs>0</HideFromDialogs>
+          </File>
+          <File>
+            <Type>2</Type>
+            <Name>fmod.dll</Name>
+            <File>fmod.dll</File>
+            <ActiveX>False</ActiveX>
+            <ActiveXInstall>False</ActiveXInstall>
+            <Action>0</Action>
+            <OverwriteDateTime>False</OverwriteDateTime>
+            <OverwriteAttributes>False</OverwriteAttributes>
+            <PassCommandLine>False</PassCommandLine>
+            <HideFromDialogs>0</HideFromDialogs>
+          </File>
+          <File>
+            <Type>2</Type>
+            <Name>fmodL.dll</Name>
+            <File>fmodL.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
@@ -314,4 +314,13 @@
     <MapExecutableWithTemporaryFile>True</MapExecutableWithTemporaryFile>
     <AllowRunningOfVirtualExeFiles>True</AllowRunningOfVirtualExeFiles>
   </Options>
+  <Storage>
+    <Files>
+      <Enabled>False</Enabled>
+      <BaseFolder>0</BaseFolder>
+      <Folder/>
+      <RandomFileNames>False</RandomFileNames>
+      <EncryptContent>False</EncryptContent>
+    </Files>
+  </Storage>
 </>
