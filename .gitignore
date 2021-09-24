@@ -24,4 +24,6 @@ xcuserdata/
 *.la
 *.a
 
+bin/*.dll
 *.app
+*.exe
