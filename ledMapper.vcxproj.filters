@@ -138,9 +138,6 @@
     <Filter Include="addons\ofxLedMapper\src\output">
       <UniqueIdentifier>{88557BA7-CBC1-FB6A-F62B-9FBD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="..\..\..\addons\ofxNetwork\src">
-      <UniqueIdentifier>{3D1C10C7-8F35-E796-9C70-F5F3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="addons\ofxSpout">
       <UniqueIdentifier>{F4DD1F4F-E479-F60E-B010-30BD}</UniqueIdentifier>
     </Filter>
@@ -158,12 +155,6 @@
     </Filter>
     <Filter Include="addons\ofxSpout\libs\SpoutSDK\src">
       <UniqueIdentifier>{CC43A1EC-9F74-499A-D230-67A8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="..\..\..\addons\ofxXmlSettings\src">
-      <UniqueIdentifier>{CCB2AC63-49D2-977C-CFE8-AEAD}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="..\..\..\addons\ofxXmlSettings\libs">
-      <UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
