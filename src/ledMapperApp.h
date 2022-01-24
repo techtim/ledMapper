@@ -10,7 +10,7 @@
 #elif defined(TARGET_OSX)
 #include "ofxSyphon.h"
 #endif
-
+    
 class ledMapperApp : public ofBaseApp{
     
 public:
@@ -71,7 +71,7 @@ public:
     
     ofxXmlSettings XML;
     
-    bool bHelp = false, bSetupGui, bTestImage, bTestImageAnimate, bMenuExpanded;
+    bool bHelp = false, bSetupGui, bSpoutInput = true, bTestImage, bTestImageAnimate, bMenuExpanded;
     float animateHue;
     string textHelp;
 };

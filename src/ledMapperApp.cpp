@@ -87,8 +87,7 @@ void ledMapperApp::setupGui()
     m_guiTheme = make_unique<ofxDatGuiThemeLM>();
 
     /// setup menu gui
-    m_guiMenu
-        = make_unique<ofxDatGuiFolder>("Menu", ofColor::fromHex(LedMapper::LM_COLOR_GREEN_DARK));
+    m_guiMenu = make_unique<ofxDatGuiFolder>("Menu", ofColor::fromHex(LedMapper::LM_COLOR_GREEN_DARK));
     for (const auto &it : s_menuItems) {
         auto but = m_guiMenu->addButton(it);
         but->onButtonEvent(this, &ledMapperApp::onButtonClick);
@@ -121,6 +120,7 @@ void ledMapperApp::setupGui()
     m_guiInput->addSlider("green", 0, 255)->bind(filterG);
     m_guiInput->addSlider("blue", 0, 255)->bind(filterB);
 
+    m_guiInput->addToggle("spout input")->bind(bSpoutInput);
     m_guiInput->addToggle("test image")->bind(bTestImage);
     m_guiInput->addToggle("animate image")->bind(bTestImageAnimate);
 
@@ -181,7 +181,9 @@ void ledMapperApp::draw()
 
 #ifdef TARGET_WIN32
     // receive Spout texture
-    bool received = m_spoutIn.receive(tex);
+    bool received = false;
+    if (bSpoutInput)
+        received = m_spoutIn.receive(tex);
 #endif
 
     m_fbo.begin();
@@ -222,7 +224,7 @@ void ledMapperApp::draw()
 
     ofSetBackgroundColor(0);
 
-	ofSetColor(255);
+    ofSetColor(255);
     m_fbo.draw(0, 0);
 
     /// update LM with grabbed pixels to send them
@@ -322,8 +324,7 @@ bool ledMapperApp::load(const string &folderPath)
                      conf.count("screenHeight") ? conf.at("screenHeight").get<int>() : 768);
 
     bMenuExpanded = conf.count("bMenuExpanded") ? conf.at("bMenuExpanded").get<bool>() : true;
-    m_menuSelected
-        = conf.count("menuSelected") ? conf.at("menuSelected").get<string>() : s_menuItems.front();
+    m_menuSelected = conf.count("menuSelected") ? conf.at("menuSelected").get<string>() : s_menuItems.front();
 
     syphonW = conf.count("syphonW") ? conf.at("syphonW").get<int>() : 600;
     syphonH = conf.count("syphonH") ? conf.at("syphonH").get<int>() : 400;
@@ -334,8 +335,7 @@ bool ledMapperApp::load(const string &folderPath)
     filterG = conf.count("filterG") ? conf.at("filterG").get<int>() : 255;
     filterB = conf.count("filterB") ? conf.at("filterB").get<int>() : 255;
     bTestImage = conf.count("bTestImage") ? conf.at("bTestImage").get<bool>() : true;
-    bTestImageAnimate
-        = conf.count("bTestImageAnimate") ? conf.at("bTestImageAnimate").get<bool>() : true;
+    bTestImageAnimate = conf.count("bTestImageAnimate") ? conf.at("bTestImageAnimate").get<bool>() : true;
     tex.allocate(syphonW, syphonH, GL_RGBA);
     m_ledMapper->load(folderPath);
     m_player->load(folderPath);
@@ -362,8 +362,7 @@ void ledMapperApp::onButtonClick(ofxDatGuiButtonEvent e)
     string name = e.target->getName();
 
     /// check for Menu items click
-    if (find_if(begin(s_menuItems), end(s_menuItems),
-                [&name](const string &it) { return name == it; })
+    if (find_if(begin(s_menuItems), end(s_menuItems), [&name](const string &it) { return name == it; })
         != end(s_menuItems)) {
         ofLogVerbose() << "Switch Menu to " << e.target->getName();
         m_menuSelected = e.target->getName();
@@ -417,8 +416,8 @@ void ledMapperApp::dragEvent(ofDragInfo info)
     for (const auto &filePath : info.files) {
 
         /// Check for config file in folder, if found load it and folder it contains
-        if (filePath.compare(filePath.size() - LM_CONFIG_EXTENSION.size(),
-                             LM_CONFIG_EXTENSION.size(), LM_CONFIG_EXTENSION)
+        if (filePath.compare(filePath.size() - LM_CONFIG_EXTENSION.size(), LM_CONFIG_EXTENSION.size(),
+                             LM_CONFIG_EXTENSION)
             == 0) {
             ofLogVerbose() << "!!!!!!! LedMapper CONFIG Path=" << filePath;
             std::filesystem::path pth(filePath);

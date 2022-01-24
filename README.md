@@ -35,3 +35,7 @@ sudo ./scripts/linux/ubuntu/install_dependencies.sh
 cd ../../../apps/projectGenerator/commandLine && make -j4
 ```
 run ProjectGenerator for ledMapper
+
+### Windows
+Use VS 2019 with v142
+In ofxLedMapper in EASTL submodule update its submodule `git submodule update --init test/package/EABase`
